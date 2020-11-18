@@ -227,3 +227,12 @@ Saved/
 
 # Ignore the headers and cpp files in the clang toolchain on Linux
 Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/**
+
+# Oxi exceptions
+!/Oxi/Content/
+!/Oxi/Content/*
+!/Oxi/Content/**/*.uasset
+!/Oxi/Content/**/*.umap
+!/Oxi/Binaries/**/*.dll
+!/Oxi/Binaries/**/*.modules
+!/Oxi/Binaries/**/*.target
