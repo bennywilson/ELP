@@ -1,0 +1,7 @@
+{
+	"BuildId": "db6ef63d-4e04-4676-b26d-a4dc00017063",
+	"Modules": 
+	{
+		"UdpMessaging": "UnrealMultiUserServer-UdpMessaging.dll"
+	}
+}

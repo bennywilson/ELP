@@ -1,0 +1,19 @@
+{
+	"BuildId": "67cc611a-3f98-45e8-8f44-7ed0981b8475",
+	"Modules": 
+	{
+		"ApplicationCore": "UnrealLightmass-ApplicationCore.dll",
+		"BuildSettings": "UnrealLightmass-BuildSettings.dll",
+		"Cbor": "UnrealLightmass-Cbor.dll",
+		"Core": "UnrealLightmass-Core.dll",
+		"CoreUObject": "UnrealLightmass-CoreUObject.dll",
+		"Json": "UnrealLightmass-Json.dll",
+		"Messaging": "UnrealLightmass-Messaging.dll",
+		"Networking": "UnrealLightmass-Networking.dll",
+		"Projects": "UnrealLightmass-Projects.dll",
+		"Serialization": "UnrealLightmass-Serialization.dll",
+		"Sockets": "UnrealLightmass-Sockets.dll",
+		"SwarmInterface": "UnrealLightmass-SwarmInterface.dll",
+		"TraceLog": "UnrealLightmass-TraceLog.dll"
+	}
+}

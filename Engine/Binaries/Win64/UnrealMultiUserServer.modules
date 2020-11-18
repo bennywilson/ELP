@@ -1,0 +1,18 @@
+{
+	"BuildId": "db6ef63d-4e04-4676-b26d-a4dc00017063",
+	"Modules": 
+	{
+		"ApplicationCore": "UnrealMultiUserServer-ApplicationCore.dll",
+		"BuildSettings": "UnrealMultiUserServer-BuildSettings.dll",
+		"Cbor": "UnrealMultiUserServer-Cbor.dll",
+		"Core": "UnrealMultiUserServer-Core.dll",
+		"CoreUObject": "UnrealMultiUserServer-CoreUObject.dll",
+		"Json": "UnrealMultiUserServer-Json.dll",
+		"Messaging": "UnrealMultiUserServer-Messaging.dll",
+		"Networking": "UnrealMultiUserServer-Networking.dll",
+		"Projects": "UnrealMultiUserServer-Projects.dll",
+		"Serialization": "UnrealMultiUserServer-Serialization.dll",
+		"Sockets": "UnrealMultiUserServer-Sockets.dll",
+		"TraceLog": "UnrealMultiUserServer-TraceLog.dll"
+	}
+}

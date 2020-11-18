@@ -1,0 +1,35 @@
+{
+	"BuildId": "8f6d658c-3b1f-4bb1-8e5d-c757f6bb377b",
+	"Modules": 
+	{
+		"AppFramework": "UnrealInsights-AppFramework.dll",
+		"ApplicationCore": "UnrealInsights-ApplicationCore.dll",
+		"AssetRegistry": "UnrealInsights-AssetRegistry.dll",
+		"BuildSettings": "UnrealInsights-BuildSettings.dll",
+		"Cbor": "UnrealInsights-Cbor.dll",
+		"Core": "UnrealInsights-Core.dll",
+		"CoreUObject": "UnrealInsights-CoreUObject.dll",
+		"DesktopPlatform": "UnrealInsights-DesktopPlatform.dll",
+		"EditorStyle": "UnrealInsights-EditorStyle.dll",
+		"ImageWrapper": "UnrealInsights-ImageWrapper.dll",
+		"InputCore": "UnrealInsights-InputCore.dll",
+		"Json": "UnrealInsights-Json.dll",
+		"MessageLog": "UnrealInsights-MessageLog.dll",
+		"Messaging": "UnrealInsights-Messaging.dll",
+		"Projects": "UnrealInsights-Projects.dll",
+		"RenderCore": "UnrealInsights-RenderCore.dll",
+		"RHI": "UnrealInsights-RHI.dll",
+		"Settings": "UnrealInsights-Settings.dll",
+		"Slate": "UnrealInsights-Slate.dll",
+		"SlateCore": "UnrealInsights-SlateCore.dll",
+		"SlateReflector": "UnrealInsights-SlateReflector.dll",
+		"Sockets": "UnrealInsights-Sockets.dll",
+		"SourceCodeAccess": "UnrealInsights-SourceCodeAccess.dll",
+		"StandaloneRenderer": "UnrealInsights-StandaloneRenderer.dll",
+		"TraceAnalysis": "UnrealInsights-TraceAnalysis.dll",
+		"TraceInsights": "UnrealInsights-TraceInsights.dll",
+		"TraceLog": "UnrealInsights-TraceLog.dll",
+		"TraceServices": "UnrealInsights-TraceServices.dll",
+		"WorkspaceMenuStructure": "UnrealInsights-WorkspaceMenuStructure.dll"
+	}
+}

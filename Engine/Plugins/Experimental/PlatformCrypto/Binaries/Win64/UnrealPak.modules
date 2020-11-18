@@ -1,0 +1,9 @@
+{
+	"BuildId": "f1926e7d-b4df-4c35-883e-c3ca0ecab428",
+	"Modules": 
+	{
+		"PlatformCrypto": "UnrealPak-PlatformCrypto.dll",
+		"PlatformCryptoOpenSSL": "UnrealPak-PlatformCryptoOpenSSL.dll",
+		"PlatformCryptoTypes": "UnrealPak-PlatformCryptoTypes.dll"
+	}
+}

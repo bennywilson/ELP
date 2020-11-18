@@ -1,0 +1,13 @@
+{
+	"BuildId": "4456acd4-7c3b-4de2-ac24-ed63458fb954",
+	"Modules": 
+	{
+		"LinuxAArch64ClientTargetPlatform": "UnrealFrontend-LinuxAArch64ClientTargetPlatform.dll",
+		"LinuxAArch64NoEditorTargetPlatform": "UnrealFrontend-LinuxAArch64NoEditorTargetPlatform.dll",
+		"LinuxAArch64ServerTargetPlatform": "UnrealFrontend-LinuxAArch64ServerTargetPlatform.dll",
+		"LinuxClientTargetPlatform": "UnrealFrontend-LinuxClientTargetPlatform.dll",
+		"LinuxNoEditorTargetPlatform": "UnrealFrontend-LinuxNoEditorTargetPlatform.dll",
+		"LinuxServerTargetPlatform": "UnrealFrontend-LinuxServerTargetPlatform.dll",
+		"LinuxTargetPlatform": "UnrealFrontend-LinuxTargetPlatform.dll"
+	}
+}

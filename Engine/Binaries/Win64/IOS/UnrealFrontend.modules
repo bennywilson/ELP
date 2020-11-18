@@ -1,0 +1,8 @@
+{
+	"BuildId": "4456acd4-7c3b-4de2-ac24-ed63458fb954",
+	"Modules": 
+	{
+		"IOSTargetPlatform": "UnrealFrontend-IOSTargetPlatform.dll",
+		"TVOSTargetPlatform": "UnrealFrontend-TVOSTargetPlatform.dll"
+	}
+}
