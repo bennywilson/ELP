@@ -1,0 +1,12 @@
+{
+	"BuildId": "c219d34e-9643-4396-a968-72645e0b2bbf",
+	"Modules": 
+	{
+		"BuildSettings": "UnrealHeaderTool-BuildSettings.dll",
+		"Core": "UnrealHeaderTool-Core.dll",
+		"CoreUObject": "UnrealHeaderTool-CoreUObject.dll",
+		"Json": "UnrealHeaderTool-Json.dll",
+		"Projects": "UnrealHeaderTool-Projects.dll",
+		"TraceLog": "UnrealHeaderTool-TraceLog.dll"
+	}
+}
