@@ -236,3 +236,7 @@ Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/**
 !/Oxi/Binaries/**/*.dll
 !/Oxi/Binaries/**/*.modules
 !/Oxi/Binaries/**/*.target
+!/Engine/Binaries/Win64
+!/Engine/Binaries/Win64/*.dll
+!/Engine/Binaries/Win64/*.exe
+!*.modules
