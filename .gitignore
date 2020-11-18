@@ -241,3 +241,4 @@ Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/**
 !/Engine/Binaries/Win64/*.exe
 !*.modules
 !*.uplugin
+!/Engine/**/UE4*.dll
