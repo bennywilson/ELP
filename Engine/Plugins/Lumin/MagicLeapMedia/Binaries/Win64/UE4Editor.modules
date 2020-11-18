@@ -1,0 +1,9 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"MagicLeapMediaCodecFactory": "UE4Editor-MagicLeapMediaCodecFactory.dll",
+		"MagicLeapMediaEditor": "UE4Editor-MagicLeapMediaEditor.dll",
+		"MagicLeapMediaFactory": "UE4Editor-MagicLeapMediaFactory.dll"
+	}
+}

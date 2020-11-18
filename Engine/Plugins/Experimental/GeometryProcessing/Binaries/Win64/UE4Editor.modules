@@ -1,0 +1,11 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"DynamicMesh": "UE4Editor-DynamicMesh.dll",
+		"GeometricObjects": "UE4Editor-GeometricObjects.dll",
+		"GeometryAlgorithms": "UE4Editor-GeometryAlgorithms.dll",
+		"MeshConversion": "UE4Editor-MeshConversion.dll",
+		"MeshSolverUtilities": "UE4Editor-MeshSolverUtilities.dll"
+	}
+}

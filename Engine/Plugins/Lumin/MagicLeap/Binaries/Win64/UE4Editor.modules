@@ -1,0 +1,21 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"MagicLeap": "UE4Editor-MagicLeap.dll",
+		"MagicLeapAR": "UE4Editor-MagicLeapAR.dll",
+		"MagicLeapARPinImpl": "UE4Editor-MagicLeapARPinImpl.dll",
+		"MagicLeapAudio": "UE4Editor-MagicLeapAudio.dll",
+		"MagicLeapController": "UE4Editor-MagicLeapController.dll",
+		"MagicLeapEyeTracker": "UE4Editor-MagicLeapEyeTracker.dll",
+		"MagicLeapHandMeshing": "UE4Editor-MagicLeapHandMeshing.dll",
+		"MagicLeapHandTracking": "UE4Editor-MagicLeapHandTracking.dll",
+		"MagicLeapHelperOpenGL": "UE4Editor-MagicLeapHelperOpenGL.dll",
+		"MagicLeapHelperVulkan": "UE4Editor-MagicLeapHelperVulkan.dll",
+		"MagicLeapIdentity": "UE4Editor-MagicLeapIdentity.dll",
+		"MagicLeapImageTracker": "UE4Editor-MagicLeapImageTracker.dll",
+		"MagicLeapPlanes": "UE4Editor-MagicLeapPlanes.dll",
+		"MagicLeapPrivileges": "UE4Editor-MagicLeapPrivileges.dll",
+		"MagicLeapSecureStorage": "UE4Editor-MagicLeapSecureStorage.dll"
+	}
+}

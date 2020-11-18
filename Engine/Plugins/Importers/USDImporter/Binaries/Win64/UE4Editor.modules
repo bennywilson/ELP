@@ -1,0 +1,13 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"UnrealUSDWrapper": "UE4Editor-UnrealUSDWrapper.dll",
+		"USDExporter": "UE4Editor-USDExporter.dll",
+		"USDImporter": "UE4Editor-USDImporter.dll",
+		"USDSchemas": "UE4Editor-USDSchemas.dll",
+		"USDStage": "UE4Editor-USDStage.dll",
+		"USDStageEditor": "UE4Editor-USDStageEditor.dll",
+		"USDUtilities": "UE4Editor-USDUtilities.dll"
+	}
+}

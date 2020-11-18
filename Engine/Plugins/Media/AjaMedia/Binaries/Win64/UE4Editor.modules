@@ -1,0 +1,10 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"AjaMedia": "UE4Editor-AjaMedia.dll",
+		"AjaMediaEditor": "UE4Editor-AjaMediaEditor.dll",
+		"AjaMediaFactory": "UE4Editor-AjaMediaFactory.dll",
+		"AjaMediaOutput": "UE4Editor-AjaMediaOutput.dll"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"GooglePAD": "UE4Editor-GooglePAD.dll",
+		"GooglePADEditor": "UE4Editor-GooglePADEditor.dll"
+	}
+}

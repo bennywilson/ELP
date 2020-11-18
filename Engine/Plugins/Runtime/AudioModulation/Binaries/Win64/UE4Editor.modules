@@ -1,0 +1,8 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"AudioModulation": "UE4Editor-AudioModulation.dll",
+		"AudioModulationEditor": "UE4Editor-AudioModulationEditor.dll"
+	}
+}

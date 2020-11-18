@@ -1,0 +1,10 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"AndroidDeviceDetection": "UE4Editor-AndroidDeviceDetection.dll",
+		"AndroidPlatformEditor": "UE4Editor-AndroidPlatformEditor.dll",
+		"AndroidRuntimeSettings": "UE4Editor-AndroidRuntimeSettings.dll",
+		"AndroidTargetPlatform": "UE4Editor-AndroidTargetPlatform.dll"
+	}
+}

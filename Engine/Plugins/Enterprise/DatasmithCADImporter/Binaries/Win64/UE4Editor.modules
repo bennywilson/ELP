@@ -1,0 +1,16 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"CADInterfaces": "UE4Editor-CADInterfaces.dll",
+		"CADLibrary": "UE4Editor-CADLibrary.dll",
+		"CADTools": "UE4Editor-CADTools.dll",
+		"DatasmithCADTranslator": "UE4Editor-DatasmithCADTranslator.dll",
+		"DatasmithCoreTechExtension": "UE4Editor-DatasmithCoreTechExtension.dll",
+		"DatasmithCoreTechParametricSurfaceData": "UE4Editor-DatasmithCoreTechParametricSurfaceData.dll",
+		"DatasmithDispatcher": "UE4Editor-DatasmithDispatcher.dll",
+		"DatasmithOpenNurbsTranslator": "UE4Editor-DatasmithOpenNurbsTranslator.dll",
+		"DatasmithPLMXMLTranslator": "UE4Editor-DatasmithPLMXMLTranslator.dll",
+		"DatasmithWireTranslator": "UE4Editor-DatasmithWireTranslator.dll"
+	}
+}

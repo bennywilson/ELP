@@ -1,0 +1,8 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"MediaCompositing": "UE4Editor-MediaCompositing.dll",
+		"MediaCompositingEditor": "UE4Editor-MediaCompositingEditor.dll"
+	}
+}

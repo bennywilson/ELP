@@ -1,0 +1,11 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"Paper2D": "UE4Editor-Paper2D.dll",
+		"Paper2DEditor": "UE4Editor-Paper2DEditor.dll",
+		"PaperSpriteSheetImporter": "UE4Editor-PaperSpriteSheetImporter.dll",
+		"PaperTiledImporter": "UE4Editor-PaperTiledImporter.dll",
+		"SmartSnapping": "UE4Editor-SmartSnapping.dll"
+	}
+}

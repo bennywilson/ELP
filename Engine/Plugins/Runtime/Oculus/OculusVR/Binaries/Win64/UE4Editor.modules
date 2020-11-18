@@ -1,0 +1,10 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"OculusEditor": "UE4Editor-OculusEditor.dll",
+		"OculusHMD": "UE4Editor-OculusHMD.dll",
+		"OculusInput": "UE4Editor-OculusInput.dll",
+		"OculusMR": "UE4Editor-OculusMR.dll"
+	}
+}

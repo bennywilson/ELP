@@ -1,0 +1,10 @@
+{
+	"BuildId": "d3aced7c-3154-4cef-8660-715a36007981",
+	"Modules": 
+	{
+		"IOSPlatformEditor": "UE4Editor-IOSPlatformEditor.dll",
+		"IOSRuntimeSettings": "UE4Editor-IOSRuntimeSettings.dll",
+		"IOSTargetPlatform": "UE4Editor-IOSTargetPlatform.dll",
+		"TVOSTargetPlatform": "UE4Editor-TVOSTargetPlatform.dll"
+	}
+}
