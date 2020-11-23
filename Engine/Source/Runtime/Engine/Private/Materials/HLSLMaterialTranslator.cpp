@@ -1336,7 +1336,13 @@ void FHLSLMaterialTranslator::GetMaterialEnvironment(EShaderPlatform InPlatform,
 				OutEnvironment.SetDefine(TEXT("THIN_TRANSLUCENT_USE_DUAL_BLEND"), TEXT("1"));
 			}
 		}
-
+		// ELP BEGIN - bwilson
+		if (ShadingModels.HasShadingModel(MSM_StylizedHuman))
+		{
+			OutEnvironment.SetDefine(TEXT("MATERIAL_SHADINGMODEL_STYLIZED_HUMAN"), TEXT("1"));
+			NumSetMaterials++;
+		}
+		// ELP END
 		if(ShadingModels.HasShadingModel(MSM_SingleLayerWater) && 
 			(IsSwitchPlatform(Platform) || IsVulkanMobileSM5Platform(Platform) || IsPS4Platform(Platform) || Platform == SP_XBOXONE_D3D12))
 		{

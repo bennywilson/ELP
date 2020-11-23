@@ -135,6 +135,17 @@ void SetGBufferForShadingModel(
 		GBuffer.IndirectIrradiance *= 1 - GBuffer.CustomData.a;
 	}
 #endif
+	// ELP BEGIN - bwilson
+#if MATERIAL_SHADINGMODEL_STYLIZED_HUMAN
+	else if (ShadingModel == SHADINGMODELID_STYLIZED_HUMAN)
+	{
+		GBuffer.CustomData.x = GetMaterialCustomData0(MaterialParameters);
+		GBuffer.CustomData.y = GetMaterialCustomData1(MaterialParameters);
+		GBuffer.CustomData.w = 1.0f;
+	}
+#endif
+	// ELP END
+
 #if MATERIAL_SHADINGMODEL_EYE
 	else if (ShadingModel == SHADINGMODELID_EYE)
 	{

@@ -60,7 +60,7 @@ FDirectLighting IntegrateBxDF( FGBufferData GBuffer, half3 N, half3 V, FCapsuleL
 		NoL = dot( N, L );
 	}
 
-	if( Capsule.Radius > 0 )
+	if( Capsule.Radius > 0 && GBuffer.ShadingModelID != SHADINGMODELID_STYLIZED_HUMAN )			// ELP bwilson
 	{
 		// TODO Use capsule area?
 		float SinAlphaSqr = saturate( Pow2( Capsule.Radius ) * Falloff );

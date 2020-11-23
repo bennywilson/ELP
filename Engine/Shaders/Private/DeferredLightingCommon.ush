@@ -323,6 +323,13 @@ FDeferredLightingSplit GetDynamicLightingSplit(
 
 		LightAccumulator.EstimatedCost += 0.3f;		// add the cost of getting the shadow terms
 
+		// ELP BEGIN bwilson - todo.  Soft shadowing causing issues
+		if (GBuffer.ShadingModelID == SHADINGMODELID_STYLIZED_HUMAN)
+		{
+			Shadow.SurfaceShadow = 0.25f;
+		}
+		// ELP END
+
 		BRANCH
 		if( Shadow.SurfaceShadow + Shadow.TransmissionShadow > 0 )
 		{
