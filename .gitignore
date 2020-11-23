@@ -242,3 +242,5 @@ Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/**
 !*.modules
 !*.uplugin
 !/Engine/**/UE4*.dll
+!/Source/**/*.psd
+!/Source/**/*.psb
