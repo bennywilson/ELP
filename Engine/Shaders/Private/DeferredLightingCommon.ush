@@ -323,15 +323,8 @@ FDeferredLightingSplit GetDynamicLightingSplit(
 
 		LightAccumulator.EstimatedCost += 0.3f;		// add the cost of getting the shadow terms
 
-		// ELP BEGIN bwilson - todo.  Soft shadowing causing issues
-		if (GBuffer.ShadingModelID == SHADINGMODELID_STYLIZED_HUMAN)
-		{
-			Shadow.SurfaceShadow = 0.25f;
-		}
-		// ELP END
-
 		BRANCH
-		if( Shadow.SurfaceShadow + Shadow.TransmissionShadow > 0 )
+		if( Shadow.SurfaceShadow + Shadow.TransmissionShadow > 0)
 		{
 			const bool bNeedsSeparateSubsurfaceLightAccumulation = UseSubsurfaceProfile(GBuffer.ShadingModelID);
 			float3 LightColor = LightData.Color;
@@ -380,6 +373,10 @@ FDeferredLightingSplit GetDynamicLightingSplit(
 
 			Lighting.Specular *= LightData.SpecularScale;
 				
+				if (ShadingModelID == SHADINGMODELID_STYLIZED_HUMAN)
+				{
+					Shadow.SurfaceShadow = 1.0f;
+				}
 			LightAccumulator_AddSplit( LightAccumulator, Lighting.Diffuse, Lighting.Specular, Lighting.Diffuse, LightColor * LightMask * Shadow.SurfaceShadow, bNeedsSeparateSubsurfaceLightAccumulation );
 			LightAccumulator_AddSplit( LightAccumulator, Lighting.Transmission, 0.0f, Lighting.Transmission, LightColor * LightMask * Shadow.TransmissionShadow, bNeedsSeparateSubsurfaceLightAccumulation );
 

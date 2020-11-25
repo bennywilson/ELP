@@ -1104,7 +1104,7 @@ FDirectLighting StylizedHumanBxDF( FGBufferData GBuffer, half3 N, half3 V, half3
 	FDirectLighting Lighting;
 	float FinalLightAmt =  (AreaLight.FalloffColor * ( Falloff * NoL ));
 	FinalLightAmt = saturate( smoothstep( GBuffer.CustomData.x, GBuffer.CustomData.y, FinalLightAmt) );
-	FinalLightAmt = (FinalLightAmt * 0.75f) + 0.25f;
+//	FinalLightAmt = (FinalLightAmt * 0.75f) + 0.25f;
 
 	Lighting.Diffuse  = FinalLightAmt * GBuffer.DiffuseColor;
 	Lighting.Specular = 0;

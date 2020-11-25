@@ -244,3 +244,8 @@ Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/**
 !/Engine/**/UE4*.dll
 !/Source/**/*.psd
 !/Source/**/*.psb
+!/Source/**/*.blend
+!/Source/**/*.jpg
+!/Source/**/*.bmp
+!/Source/**/*.fbx
+!/Source/**/*.png
