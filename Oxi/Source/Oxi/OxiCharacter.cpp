@@ -1,8 +1,8 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// ELP 2020
 
 #include "OxiCharacter.h"
 #include "OxiProjectile.h"
-#include "Animation/AnimInstance.h"
+#include "OxiWeaponAnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -90,7 +90,7 @@ void AOxiCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules::SnapToTargetNotIncludingScale, TEXT("GripPoint"));
 
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
 	if (bUsingMotionControllers)
@@ -181,8 +181,18 @@ void AOxiCharacter::OnFire()
 		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
 		if (AnimInstance != NULL)
 		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
+		//	AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
+	}
+
+	if (FireSeq != nullptr)
+	{
+		UOxiWeaponAnimInstance* const AnimInstance = Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance());
+		if (AnimInstance != nullptr)
+		{
+			AnimInstance->StartFireWeapon();
+		}
+
 	}
 }
 
