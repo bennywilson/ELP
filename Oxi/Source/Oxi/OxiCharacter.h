@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "OxiWeaponAnimInstance.h"
 #include "OxiCharacter.generated.h"
 
 class UInputComponent;
@@ -22,9 +23,11 @@ class AOxiCharacter : public ACharacter
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USceneComponent* FP_MuzzleLocation;
 
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FirstPersonCameraComponent;
+
+	UFUNCTION(BlueprintCallable, Category = "Oxi Character")
+	UOxiWeaponAnimInstance* GetWeapon() const { return Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance()); }
 
 public:
 	AOxiCharacter();

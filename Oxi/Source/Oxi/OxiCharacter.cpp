@@ -126,12 +126,6 @@ void AOxiCharacter::OnFire()
 		HandsAnimInstance->Montage_Play(FireAnimation, 1.f);
 		HandsAnimInstance->StartFireWeapon();
 	}
-
-	UOxiWeaponAnimInstance* const WeaponsAnimInstance = Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance());
-	if (WeaponsAnimInstance != nullptr)
-	{
-		WeaponsAnimInstance->StartFireWeapon();
-	}
 }
 
 void AOxiCharacter::MoveForward(float Value)
