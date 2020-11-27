@@ -18,7 +18,13 @@ class AOxiCharacter : public ACharacter
 	class USkeletalMeshComponent* Mesh1P;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	class USkeletalMeshComponent* FP_HandsOutline;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USkeletalMeshComponent* FP_Gun;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	class USkeletalMeshComponent* FP_GunOutline;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USceneComponent* FP_MuzzleLocation;
@@ -27,7 +33,10 @@ class AOxiCharacter : public ACharacter
 	class UCameraComponent* FirstPersonCameraComponent;
 
 	UFUNCTION(BlueprintCallable, Category = "Oxi Character")
-	UOxiWeaponAnimInstance* GetWeapon() const { return Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance()); }
+	UOxiWeaponAnimInstance* GetWeaponAnimBP() const { return Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance()); }
+
+	UFUNCTION(BlueprintCallable, Category = "Oxi Character")
+	UOxiWeaponAnimInstance* GetWeaponOutlineAnimBP() const { return Cast<UOxiWeaponAnimInstance>(FP_GunOutline->GetAnimInstance()); }
 
 public:
 	AOxiCharacter();

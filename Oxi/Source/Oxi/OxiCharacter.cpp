@@ -41,6 +41,14 @@ AOxiCharacter::AOxiCharacter()
 	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
 
+	FP_HandsOutline = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_HandsOutline"));
+	FP_HandsOutline->SetOnlyOwnerSee(true);
+	FP_HandsOutline->SetupAttachment(FirstPersonCameraComponent);
+	FP_HandsOutline->bCastDynamicShadow = false;
+	FP_HandsOutline->CastShadow = false;
+	FP_HandsOutline->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
+	FP_HandsOutline->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
+
 	// Create a gun mesh component
 	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
 	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
@@ -48,6 +56,14 @@ AOxiCharacter::AOxiCharacter()
 	FP_Gun->CastShadow = false;
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
+
+	FP_GunOutline = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_GunOutline"));
+	FP_GunOutline->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
+	FP_GunOutline->bCastDynamicShadow = false;
+	FP_GunOutline->CastShadow = false;
+	FP_GunOutline->SetupAttachment(Mesh1P, TEXT("GripPoint"));
+	FP_GunOutline->SetupAttachment(RootComponent);
+
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
@@ -64,8 +80,10 @@ void AOxiCharacter::BeginPlay()
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules::SnapToTargetNotIncludingScale, TEXT("GripPoint"));
+	FP_GunOutline->AttachToComponent(Mesh1P, FAttachmentTransformRules::SnapToTargetNotIncludingScale, TEXT("GripPoint"));
 
 	Mesh1P->SetHiddenInGame(false, true);
+	FP_HandsOutline->SetHiddenInGame(false, true);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -100,10 +118,17 @@ void AOxiCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInput
 void AOxiCharacter::OnFire()
 {
 	UOxiWeaponAnimInstance* const HandsAnimInstance = Cast<UOxiWeaponAnimInstance>(Mesh1P->GetAnimInstance());
-	if (HandsAnimInstance != NULL)
+	if (HandsAnimInstance != nullptr)
 	{
 		HandsAnimInstance->StartFireWeapon(FirstPersonCameraComponent);
 	}
+
+	UOxiWeaponAnimInstance* const HandsOutlineAnimInstance = Cast<UOxiWeaponAnimInstance>(FP_HandsOutline->GetAnimInstance());
+	if (HandsOutlineAnimInstance != nullptr)
+	{
+		HandsOutlineAnimInstance->StartFireWeapon(FirstPersonCameraComponent);
+	}
+	
 }
 
 void AOxiCharacter::MoveForward(float Value)
