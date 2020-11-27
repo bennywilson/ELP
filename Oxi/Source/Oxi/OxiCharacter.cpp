@@ -118,25 +118,19 @@ void AOxiCharacter::OnFire()
 		}
 	}
 
-	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
+
+	// Get the animation object for the arms mesh
+	UOxiWeaponAnimInstance* const HandsAnimInstance = Cast<UOxiWeaponAnimInstance>(Mesh1P->GetAnimInstance());
+	if (HandsAnimInstance != NULL)
 	{
-		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-		if (AnimInstance != NULL)
-		{
-		//	AnimInstance->Montage_Play(FireAnimation, 1.f);
-		}
+		HandsAnimInstance->Montage_Play(FireAnimation, 1.f);
+		HandsAnimInstance->StartFireWeapon();
 	}
 
-	if (FireSeq != nullptr)
+	UOxiWeaponAnimInstance* const WeaponsAnimInstance = Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance());
+	if (WeaponsAnimInstance != nullptr)
 	{
-		UOxiWeaponAnimInstance* const AnimInstance = Cast<UOxiWeaponAnimInstance>(FP_Gun->GetAnimInstance());
-		if (AnimInstance != nullptr)
-		{
-			AnimInstance->StartFireWeapon();
-		}
-
+		WeaponsAnimInstance->StartFireWeapon();
 	}
 }
 
