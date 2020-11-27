@@ -46,15 +46,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
 
-	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class AOxiProjectile> ProjectileClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimSequenceBase* FireSeq;
-
 protected:
 	
 	void OnFire();

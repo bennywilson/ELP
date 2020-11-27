@@ -17,7 +17,7 @@ class OXI_API UOxiWeaponAnimInstance : public UAnimInstance
 public:
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Animations")
-	bool StartFireWeapon();
+	bool StartFireWeapon(const UCameraComponent* const FirstPersonCameraComponent);
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Animations")
 	bool StopFireWeapon();
