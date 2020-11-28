@@ -38,6 +38,9 @@ class AOxiCharacter : public ACharacter
 	UFUNCTION(BlueprintCallable, Category = "Oxi Character")
 	UOxiWeaponAnimInstance* GetWeaponOutlineAnimBP() const { return Cast<UOxiWeaponAnimInstance>(FP_GunOutline->GetAnimInstance()); }
 
+	UFUNCTION(BlueprintCallable, Category = "Oxi Character")
+	USkeletalMeshComponent* GetWeaonSkeletalMesh() const { return FP_Gun; }
+
 public:
 	AOxiCharacter();
 

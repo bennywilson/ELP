@@ -120,15 +120,14 @@ void AOxiCharacter::OnFire()
 	UOxiWeaponAnimInstance* const HandsAnimInstance = Cast<UOxiWeaponAnimInstance>(Mesh1P->GetAnimInstance());
 	if (HandsAnimInstance != nullptr)
 	{
-		HandsAnimInstance->StartFireWeapon(FirstPersonCameraComponent);
+		HandsAnimInstance->StartFireWeapon(FirstPersonCameraComponent, false);
 	}
 
 	UOxiWeaponAnimInstance* const HandsOutlineAnimInstance = Cast<UOxiWeaponAnimInstance>(FP_HandsOutline->GetAnimInstance());
 	if (HandsOutlineAnimInstance != nullptr)
 	{
-		HandsOutlineAnimInstance->StartFireWeapon(FirstPersonCameraComponent);
+		HandsOutlineAnimInstance->StartFireWeapon(FirstPersonCameraComponent, true);
 	}
-	
 }
 
 void AOxiCharacter::MoveForward(float Value)
