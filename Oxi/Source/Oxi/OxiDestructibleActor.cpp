@@ -7,10 +7,9 @@ UOxiDamageInterface::UOxiDamageInterface(const FObjectInitializer& ObjectInitial
 {
 }
 
-float IOxiDamageInterface::TakeDamage_Implementation(const float DamageAmount, const AActor* DamageCauser)
+float IOxiDamageInterface::TakeDamage_Implementation(const int DamageAmount, const AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Log, TEXT("TakeDamage_Implementation() - Finally made it.  Sheesh!"));
-	return 0.0f;
+	return TakeDamage_Internal(DamageAmount, DamageCauser);
 }
 
 AOxiDestructibleActor::AOxiDestructibleActor()
@@ -51,7 +50,8 @@ void UOxiDestructibleComponent::BeginPlay()
 
 	if (DestructibleMeshComponent != nullptr)
 	{
-		DestructibleMeshComponent->SetHiddenInGame(false, true);
+		DestructibleMeshComponent->SetHiddenInGame(true, true);
+		DestructibleMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 }
 
@@ -69,8 +69,46 @@ void UOxiDestructibleComponent::TickComponent(float DeltaTime, enum ELevelTick T
 
 }
 
-float UOxiDestructibleComponent::TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser)
+int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser)
 {
+	if (Health > 0.0f && Health - DamageAmount <= 0.0f)
+	{
+		BaseMeshComponent->SetHiddenInGame(true);
+		BaseMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		if (DestructibleMeshComponent != nullptr)
+		{
+			DestructibleMeshComponent->SetHiddenInGame(false);
+			DestructibleMeshComponent->SetAllBodiesSimulatePhysics(true);
+			DestructibleMeshComponent->SetSimulatePhysics(true);
+			DestructibleMeshComponent->WakeAllRigidBodies();
+			DestructibleMeshComponent->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+			
+			const USkeletalMeshSocket* const ExplosionSocket = DestructibleMeshComponent->GetSocketByName("ExplosionLocation");
+			FVector ExplosionLocation = DestructibleMeshComponent->GetSocketLocation("ExplosionLocation");
+
+			for (FBodyInstance* BI : DestructibleMeshComponent->Bodies)
+			{
+				FVector ImpulseDir = (BI->GetCOMPosition() - ExplosionLocation).GetSafeNormal() * ExplosionImpulseMagnitude;
+				const FName BoneName = DestructibleMeshComponent->GetBoneName(BI->InstanceBoneIndex);
+
+
+				const float XYImpulse = FMath::RandRange(ExplosionXYImpulseMin, ExplosionXYImpulseMax);
+				FVector XAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(1.0f, 0.0f, 0.0f, 1.0f));
+				FVector YAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(0.0f, 1.0f, 1.0f));
+				DestructibleMeshComponent->AddImpulse(ImpulseDir + XAmount + YAmount, BoneName, true);
+				
+				FVector RotationAxis(FMath::RandRange(-1.0f, 1.0f), FMath::RandRange(-1.0f, 1.0f), FMath::RandRange(-1.0f, 1.0f));
+				if (RotationAxis.SizeSquared() < 0.01f)
+				{
+					RotationAxis.Set(1.0f, 0.0f, 0.0f);
+				}
+				RotationAxis.Normalize();
+				RotationAxis = RotationAxis * FMath::RandRange(ExplosionAngularImpulseMin, ExplosionAngularImpulseMax);
+				DestructibleMeshComponent->AddAngularImpulse(RotationAxis, BoneName, true);
+			}
+		}
+	}
+	Health -= DamageAmount;
 	UE_LOG(LogTemp, Log, TEXT("Made it yo!"));
 	return 1.3f;
 }

@@ -21,10 +21,10 @@ class IOxiDamageInterface
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Oxi Damage")
 	float TakeDamage(const float DamageAmount, const AActor* DamageCauser);
-	virtual float TakeDamage_Implementation(const float DamageAmount, const AActor* DamageCauser);
+	virtual float TakeDamage_Implementation(const int DamageAmount, const AActor* DamageCauser);
 
 private:
-	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) = 0;
+	virtual int TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser) = 0;
 };
 
 UCLASS(config = Game)
@@ -59,7 +59,25 @@ public:
 	bool InitDestructibleComponent(UStaticMeshComponent* InBaseMeshComponent, USkeletalMeshComponent* InDestructibleMeshComponent);
 
 private:
-	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) override;
+	virtual int TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser) override;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	int Health;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float ExplosionImpulseMagnitude;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float ExplosionXYImpulseMin;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float ExplosionXYImpulseMax;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float ExplosionAngularImpulseMin;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float ExplosionAngularImpulseMax;
 
 	UStaticMeshComponent* BaseMeshComponent;
 	USkeletalMeshComponent* DestructibleMeshComponent;
