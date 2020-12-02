@@ -42,6 +42,12 @@ void UOxiDestructibleComponent::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+}
+
+bool UOxiDestructibleComponent::InitDestructibleComponent(UStaticMeshComponent* InBaseMeshComponent, USkeletalMeshComponent* InDestructibleMeshComponent)
+{
+	BaseMeshComponent = InBaseMeshComponent;
+	DestructibleMeshComponent = InDestructibleMeshComponent;
 
 	if (BaseMeshComponent != nullptr)
 	{
@@ -53,12 +59,6 @@ void UOxiDestructibleComponent::BeginPlay()
 		DestructibleMeshComponent->SetHiddenInGame(true, true);
 		DestructibleMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
-}
-
-bool UOxiDestructibleComponent::InitDestructibleComponent(UStaticMeshComponent* InBaseMeshComponent, USkeletalMeshComponent* InDestructibleMeshComponent)
-{
-	BaseMeshComponent = InBaseMeshComponent;
-	DestructibleMeshComponent = InDestructibleMeshComponent;
 
 	return true;
 }
@@ -86,6 +86,7 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 			const USkeletalMeshSocket* const ExplosionSocket = DestructibleMeshComponent->GetSocketByName("ExplosionLocation");
 			FVector ExplosionLocation = DestructibleMeshComponent->GetSocketLocation("ExplosionLocation");
 
+			bool bFirst = true;
 			for (FBodyInstance* BI : DestructibleMeshComponent->Bodies)
 			{
 				FVector ImpulseDir = (BI->GetCOMPosition() - ExplosionLocation).GetSafeNormal() * ExplosionImpulseMagnitude;
@@ -94,8 +95,15 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 
 				const float XYImpulse = FMath::RandRange(ExplosionXYImpulseMin, ExplosionXYImpulseMax);
 				FVector XAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(1.0f, 0.0f, 0.0f, 1.0f));
-				FVector YAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(0.0f, 1.0f, 1.0f));
-				DestructibleMeshComponent->AddImpulse(ImpulseDir + XAmount + YAmount, BoneName, true);
+				FVector YAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(0.0f, 1.0f, 0.0f));
+
+				FVector FinalImpulse = ImpulseDir + XAmount + YAmount;
+
+				FTransform BodyTransform = BI->GetUnrealWorldTransform();
+				BodyTransform.SetLocation(BodyTransform.GetLocation() + FinalImpulse.GetSafeNormal() * SmearInitialPopDistance);
+				BI->SetBodyTransform(BodyTransform, ETeleportType::None);
+
+				DestructibleMeshComponent->AddImpulse(FinalImpulse, BoneName, true);
 				
 				FVector RotationAxis(FMath::RandRange(-1.0f, 1.0f), FMath::RandRange(-1.0f, 1.0f), FMath::RandRange(-1.0f, 1.0f));
 				if (RotationAxis.SizeSquared() < 0.01f)
@@ -104,7 +112,7 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 				}
 				RotationAxis.Normalize();
 				RotationAxis = RotationAxis * FMath::RandRange(ExplosionAngularImpulseMin, ExplosionAngularImpulseMax);
-				DestructibleMeshComponent->AddAngularImpulse(RotationAxis, BoneName, true);
+				DestructibleMeshComponent->AddAngularImpulseInRadians(RotationAxis, BoneName, true);
 			}
 		}
 	}

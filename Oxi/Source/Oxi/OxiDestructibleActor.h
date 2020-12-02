@@ -79,6 +79,18 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
 	float ExplosionAngularImpulseMax;
 
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float SmearInitialPopDistance;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float SmearLengthSec;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float SmearStartStrength;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float SmearStartTime;
+
 	UStaticMeshComponent* BaseMeshComponent;
 	USkeletalMeshComponent* DestructibleMeshComponent;
 };
