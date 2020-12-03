@@ -42,6 +42,7 @@ void UOxiDestructibleComponent::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+	RegisterComponent();
 }
 
 bool UOxiDestructibleComponent::InitDestructibleComponent(UStaticMeshComponent* InBaseMeshComponent, USkeletalMeshComponent* InDestructibleMeshComponent)
@@ -67,6 +68,37 @@ void UOxiDestructibleComponent::TickComponent(float DeltaTime, enum ELevelTick T
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (DestructibleMeshComponent != nullptr && DestructibleMeshComponent->IsVisible())
+	{
+		const float t = 1.0f - FMath::Clamp((FPlatformTime::Seconds() - SmearStartTime) / SmearLengthSec, 0.0, 1.0);
+		const float FinalStrength = SmearStartStrength * t;
+		UE_LOG(LogTemp, Log, TEXT("-> %f"), t);
+	/*float ExplosionImpulseMagnitude;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float ExplosionXYImpulseMin;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float ExplosionXYImpulseMax;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float ExplosionAngularImpulseMin;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float ExplosionAngularImpulseMax;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float SmearInitialPopDistance;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float SmearLengthSec;
+
+		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+			float SmearStartStrength;
+
+		UPROPERTY(EditAnywhere,*/
+	}
+
 }
 
 int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser)
@@ -77,6 +109,7 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 		BaseMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		if (DestructibleMeshComponent != nullptr)
 		{
+			SmearStartTime = FPlatformTime::Seconds();
 			DestructibleMeshComponent->SetHiddenInGame(false);
 			DestructibleMeshComponent->SetAllBodiesSimulatePhysics(true);
 			DestructibleMeshComponent->SetSimulatePhysics(true);
@@ -116,7 +149,7 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 			}
 		}
 	}
+
 	Health -= DamageAmount;
-	UE_LOG(LogTemp, Log, TEXT("Made it yo!"));
-	return 1.3f;
+	return 1.0f;
 }
