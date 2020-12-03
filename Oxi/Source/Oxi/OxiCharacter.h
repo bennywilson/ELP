@@ -14,16 +14,17 @@ class AOxiCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Mesh)
 	class USkeletalMeshComponent* Mesh1P;
 
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
 	class USkeletalMeshComponent* FP_HandsOutline;
 
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
 	class USkeletalMeshComponent* FP_Gun;
 
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
 	class USkeletalMeshComponent* FP_GunOutline;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
