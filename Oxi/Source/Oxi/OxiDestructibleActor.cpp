@@ -36,13 +36,17 @@ UOxiDestructibleComponent::UOxiDestructibleComponent()
 	DestructibleMeshComponent->CastShadow = true;
 	DestructibleMeshComponent->SetRelativeRotation(FRotator(0.f, 0.f, 0.f));
 	DestructibleMeshComponent->SetRelativeLocation(FVector(0.f, 0.f, 0.f));*/
+
+	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
 }
 
 void UOxiDestructibleComponent::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-	RegisterComponent();
+//	RegisterComponent();
+//	RegisterComponentTickFunctions(true);
 }
 
 bool UOxiDestructibleComponent::InitDestructibleComponent(UStaticMeshComponent* InBaseMeshComponent, USkeletalMeshComponent* InDestructibleMeshComponent)
@@ -70,35 +74,17 @@ void UOxiDestructibleComponent::TickComponent(float DeltaTime, enum ELevelTick T
 
 	if (DestructibleMeshComponent != nullptr && DestructibleMeshComponent->IsVisible())
 	{
-		const float t = 1.0f - FMath::Clamp((FPlatformTime::Seconds() - SmearStartTime) / SmearLengthSec, 0.0, 1.0);
+		const float t = 1.0f - FMath::Clamp((GetWorld()->GetUnpausedTimeSeconds() - SmearStartTime) / SmearLengthSec, 0.0f, 1.0f);
 		const float FinalStrength = SmearStartStrength * t;
-		UE_LOG(LogTemp, Log, TEXT("-> %f"), t);
-	/*float ExplosionImpulseMagnitude;
 
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float ExplosionXYImpulseMin;
 
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float ExplosionXYImpulseMax;
-
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float ExplosionAngularImpulseMin;
-
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float ExplosionAngularImpulseMax;
-
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float SmearInitialPopDistance;
-
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float SmearLengthSec;
-
-		UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-			float SmearStartStrength;
-
-		UPROPERTY(EditAnywhere,*/
+		UMaterialInstanceDynamic* const Mat = Cast<UMaterialInstanceDynamic>(DestructibleMeshComponent->GetMaterial(1));		// TODO: Unhardcode this
+		if (Mat)
+		{
+			Mat->SetScalarParameterValue("SmearStrength", SmearStartStrength* t);
+			UE_LOG(LogTemp, Log, TEXT("-> %f New smear strenght  = %f"), t, SmearStartStrength * t);
+		}
 	}
-
 }
 
 int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser)
@@ -109,7 +95,7 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 		BaseMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		if (DestructibleMeshComponent != nullptr)
 		{
-			SmearStartTime = FPlatformTime::Seconds();
+			SmearStartTime = GetWorld()->GetUnpausedTimeSeconds();
 			DestructibleMeshComponent->SetHiddenInGame(false);
 			DestructibleMeshComponent->SetAllBodiesSimulatePhysics(true);
 			DestructibleMeshComponent->SetSimulatePhysics(true);
