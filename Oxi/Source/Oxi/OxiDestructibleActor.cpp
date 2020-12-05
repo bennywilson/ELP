@@ -2,6 +2,7 @@
 
 #include "OxiDestructibleActor.h"
 #include "Components\LightComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Particles\ParticleSystemComponent.h"
 
 UOxiDamageInterface::UOxiDamageInterface(const FObjectInitializer& ObjectInitializer)
@@ -78,6 +79,11 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 	{
 		BaseMeshComponent->SetHiddenInGame(true);
 		BaseMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		if (ExplosionSound != nullptr)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, ExplosionSound, GetComponentTransform().GetLocation());
+		}
 		if (DestructibleMeshComponent != nullptr)
 		{
 			SmearStartTime = GetWorld()->GetUnpausedTimeSeconds();

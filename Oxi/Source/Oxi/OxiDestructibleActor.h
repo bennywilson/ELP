@@ -81,6 +81,9 @@ protected:
 	float ExplosionAngularImpulseMax;
 
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	USoundBase* ExplosionSound;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
 	float SmearInitialPopDistance;
 
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
