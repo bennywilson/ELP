@@ -61,6 +61,7 @@ public:
 private:
 	virtual int TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser) override;
 
+protected:
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
 	int Health;
 
@@ -90,6 +91,17 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
 	float SmearStartTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
+	ULightComponent* ExplosionLightComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
+	UParticleSystemComponent* ExplosionParticleComponent;
+
+	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
+	float ExplosionLightDurationSec;
+
+	float ExplosionLightTargetIntensity;
 
 	UStaticMeshComponent* BaseMeshComponent;
 	USkeletalMeshComponent* DestructibleMeshComponent;

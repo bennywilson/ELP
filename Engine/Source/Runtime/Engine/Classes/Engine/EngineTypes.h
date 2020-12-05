@@ -477,7 +477,8 @@ enum EMaterialShadingModel
 	MSM_SingleLayerWater		UMETA(DisplayName="SingleLayerWater"),
 	MSM_ThinTranslucent			UMETA(DisplayName="Thin Translucent"),
 	// ELP BEGIN - bwilson
-	MSM_StylizedHuman			UMETA(DisplayName = "Stylized Human"),
+	MSM_StylizedHuman			UMETA(DisplayName="Stylized Human"),
+	MSM_StylizedEnvironment		UMETA(DisplayName="Stylized Environment"),
 	// ELP END
 	/** Number of unique shading models. */
 	MSM_NUM						UMETA(Hidden),

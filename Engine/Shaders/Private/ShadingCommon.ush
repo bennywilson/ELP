@@ -17,7 +17,8 @@
 #define SHADINGMODELID_SINGLELAYERWATER		10
 #define SHADINGMODELID_THIN_TRANSLUCENT		11
 #define SHADINGMODELID_STYLIZED_HUMAN		12
-#define SHADINGMODELID_NUM					13
+#define SHADINGMODELID_STYLIZED_ENVIRONMENT	13
+#define SHADINGMODELID_NUM					14
 #define SHADINGMODELID_MASK					0xF		// 4 bits reserved for ShadingModelID			
 // ELP END
 
@@ -70,7 +71,10 @@ float3 GetShadingModelColor(uint ShadingModelID)
 		case SHADINGMODELID_EYE: return float3(0.3f, 1.0f, 1.0f);
 		case SHADINGMODELID_SINGLELAYERWATER: return float3(0.5f, 0.5f, 1.0f);
 		case SHADINGMODELID_THIN_TRANSLUCENT: return float3(1.0f, 0.8f, 0.3f);
-		case SHADINGMODELID_STYLIZED_HUMAN : return float3(0.5f, 0.11f, 0.9f);	// ELP bwilson
+		// ELP BEGIN bwilson
+		case SHADINGMODELID_STYLIZED_HUMAN : return float3(0.5f, 0.11f, 0.9f);
+		case SHADINGMODELID_STYLIZED_ENVIRONMENT : return float3(0.9f, 0.11f, 0.5f);
+		// ELP END
 		default: return float3(1.0f, 1.0f, 1.0f); // White
 	}
 #endif

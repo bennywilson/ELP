@@ -1,6 +1,8 @@
 // ELP 2020
 
 #include "OxiDestructibleActor.h"
+#include "Components\LightComponent.h"
+#include "Particles\ParticleSystemComponent.h"
 
 UOxiDamageInterface::UOxiDamageInterface(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -54,13 +56,18 @@ void UOxiDestructibleComponent::TickComponent(float DeltaTime, enum ELevelTick T
 
 	if (DestructibleMeshComponent != nullptr && DestructibleMeshComponent->IsVisible())
 	{
-		const float t = 1.0f - FMath::Clamp((GetWorld()->GetUnpausedTimeSeconds() - SmearStartTime) / SmearLengthSec, 0.0f, 1.0f);
-		const float FinalStrength = SmearStartStrength * t;
-
 		UMaterialInstanceDynamic* const Mat = Cast<UMaterialInstanceDynamic>(DestructibleMeshComponent->GetMaterial(1));		// TODO: Unhardcode this
 		if (Mat)
 		{
-			Mat->SetScalarParameterValue("SmearStrength", SmearStartStrength * t);
+			const float t = FMath::Clamp((GetWorld()->GetUnpausedTimeSeconds() - SmearStartTime) / SmearLengthSec, 0.0f, 1.0f);
+			Mat->SetScalarParameterValue("SmearStrength", SmearStartStrength * (1.0f - t));
+		}
+
+		if (ExplosionLightComponent != nullptr)
+		{
+			const float t = FMath::Clamp((GetWorld()->GetUnpausedTimeSeconds() - SmearStartTime) / ExplosionLightDurationSec, 0.0f, 1.0f);
+			const float lightMultiplier = 1.0f - t;	// Goes from off, on, off
+			ExplosionLightComponent->SetIntensity(lightMultiplier * ExplosionLightTargetIntensity);
 		}
 	}
 }
@@ -105,6 +112,20 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 				RotationAxis = RotationAxis * FMath::RandRange(ExplosionAngularImpulseMin, ExplosionAngularImpulseMax);
 				DestructibleMeshComponent->AddAngularImpulseInRadians(RotationAxis, BoneName, true);
 			}
+
+			if (ExplosionParticleComponent != nullptr)
+			{
+				ExplosionParticleComponent->ResetParticles(true);
+				ExplosionParticleComponent->SetVisibility(true);
+ 				ExplosionParticleComponent->ActivateSystem();
+			}
+		}
+
+		if (ExplosionLightComponent != nullptr)
+		{
+			ExplosionLightComponent->SetVisibility(true);
+			ExplosionLightTargetIntensity = ExplosionLightComponent->Intensity;
+			ExplosionLightComponent->SetIntensity(0.0f);
 		}
 	}
 

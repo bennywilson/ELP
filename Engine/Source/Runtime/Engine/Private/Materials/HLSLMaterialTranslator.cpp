@@ -1342,6 +1342,12 @@ void FHLSLMaterialTranslator::GetMaterialEnvironment(EShaderPlatform InPlatform,
 			OutEnvironment.SetDefine(TEXT("MATERIAL_SHADINGMODEL_STYLIZED_HUMAN"), TEXT("1"));
 			NumSetMaterials++;
 		}
+
+		if (ShadingModels.HasShadingModel(MSM_StylizedEnvironment))
+		{
+			OutEnvironment.SetDefine(TEXT("MATERIAL_SHADINGMODEL_STYLIZED_ENVIRONMENT"), TEXT("1"));
+			NumSetMaterials++;
+		}
 		// ELP END
 		if(ShadingModels.HasShadingModel(MSM_SingleLayerWater) && 
 			(IsSwitchPlatform(Platform) || IsVulkanMobileSM5Platform(Platform) || IsPS4Platform(Platform) || Platform == SP_XBOXONE_D3D12))
