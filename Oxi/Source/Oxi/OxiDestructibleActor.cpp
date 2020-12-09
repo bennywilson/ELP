@@ -10,7 +10,7 @@ UOxiDamageInterface::UOxiDamageInterface(const FObjectInitializer& ObjectInitial
 {
 }
 
-float IOxiDamageInterface::TakeDamage_Implementation(const int DamageAmount, const AActor* DamageCauser)
+float IOxiDamageInterface::TakeDamage_Implementation(const float DamageAmount, const AActor* DamageCauser)
 {
 	return TakeDamage_Internal(DamageAmount, DamageCauser);
 }
@@ -73,12 +73,13 @@ void UOxiDestructibleComponent::TickComponent(float DeltaTime, enum ELevelTick T
 	}
 }
 
-int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser)
+float UOxiDestructibleComponent::TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser)
 {
 	if (Health > 0.0f && Health - DamageAmount <= 0.0f)
 	{
 		BaseMeshComponent->SetHiddenInGame(true);
 		BaseMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		BaseMeshComponent->SetGenerateOverlapEvents(false);
 
 		if (ExplosionSound != nullptr)
 		{
@@ -134,6 +135,37 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 			ExplosionLightComponent->SetVisibility(true);
 			ExplosionLightTargetIntensity = ExplosionLightComponent->Intensity;
 			ExplosionLightComponent->SetIntensity(0.0f);
+		}
+
+		if (ExplosionSplashDamageRadius > 0 && ExplosionSplashDamageAmount > 0)
+		{
+			TArray<TEnumAsByte<EObjectTypeQuery> > ObjectTypes;
+			TArray<AActor*> ActorsToIgnore;
+			TArray<class UPrimitiveComponent*> OutComponents;
+			ActorsToIgnore.Add(GetOwner());
+			UKismetSystemLibrary::SphereOverlapComponents(this, GetOwner()->GetActorLocation(), ExplosionSplashDamageRadius, ObjectTypes, nullptr, ActorsToIgnore, OutComponents);
+			for (int i = 0; i < OutComponents.Num(); i++)
+			{
+				UE_LOG(LogTemp, Log, TEXT("%s %s"), *OutComponents[i]->GetName(), *OutComponents[i]->GetOwner()->GetFullName());
+
+				UPrimitiveComponent* CurComp = OutComponents[i];
+				if (CurComp->GetAttachParent() == this)
+				{
+					continue;
+				}
+				AActor* const CurOwner = CurComp->GetOwner();
+				if (CurOwner->GetClass()->ImplementsInterface(UOxiDamageInterface::StaticClass()))
+				{
+					IOxiDamageInterface* const OwnerDamageInterface = Cast<IOxiDamageInterface>(CurOwner);
+					OwnerDamageInterface->Execute_TakeDamage(CurOwner, ExplosionSplashDamageAmount, GetOwner());
+				}
+				auto DamageCompList = CurComp->GetOwner()->GetComponentsByInterface(UOxiDamageInterface::StaticClass());
+				for (int iDamage = 0; iDamage < DamageCompList.Num(); iDamage++)
+				{
+					IOxiDamageInterface* const DamageInterface = Cast<IOxiDamageInterface>(DamageCompList[iDamage]);
+					DamageInterface->Execute_TakeDamage(DamageCompList[iDamage], ExplosionSplashDamageAmount, GetOwner());
+				}
+			}
 		}
 	}
 

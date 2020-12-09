@@ -1237,7 +1237,7 @@ bool UKismetSystemLibrary::SphereOverlapActors(UObject* WorldContextObject, cons
 bool UKismetSystemLibrary::SphereOverlapComponents(UObject* WorldContextObject, const FVector SpherePos, float SphereRadius, const TArray<TEnumAsByte<EObjectTypeQuery> > & ObjectTypes, UClass* ComponentClassFilter, const TArray<AActor*>& ActorsToIgnore, TArray<UPrimitiveComponent*>& OutComponents)
 {
 	OutComponents.Empty();
-
+		
 	FCollisionQueryParams Params(SCENE_QUERY_STAT(SphereOverlapComponents), false);
 	Params.AddIgnoredActors(ActorsToIgnore);
 	TArray<FOverlapResult> Overlaps;

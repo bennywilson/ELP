@@ -19,8 +19,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Oxi Damage")
 	float TakeDamage(const float DamageAmount, const AActor* DamageCauser);
 	
-	virtual float TakeDamage_Implementation(const int DamageAmount, const AActor* DamageCauser);
+	virtual float TakeDamage_Implementation(const float DamageAmount, const AActor* DamageCauser);
 
 private:
-	virtual int TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser) = 0;
+	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) = 0;
 };

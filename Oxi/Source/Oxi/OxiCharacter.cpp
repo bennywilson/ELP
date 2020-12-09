@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/LightComponent.h"
 #include "GameFramework/InputSettings.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -81,6 +82,17 @@ void AOxiCharacter::BeginPlay()
 
 	Mesh1P->SetHiddenInGame(false, true);
 	FP_HandsOutline->SetHiddenInGame(false, true);
+
+	HandsMaterial = Mesh1P->CreateDynamicMaterialInstance(0);
+	HandsMaterial->SetVectorParameterValue("PulseColor", OxiColor);
+
+	for (int i = 0; i < OxiPulseLightList.Num(); i++)
+	{
+		OxiPulseLightList[i]->SetLightColor(OxiColor);
+	}
+//	HandsMaterial->SetVectorParameterValue("PulseColor2", OxiColor);
+
+	CurrentHealth = BaseHealth;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -151,4 +163,27 @@ void AOxiCharacter::TurnAtRate(float Rate)
 void AOxiCharacter::LookUpAtRate(float Rate)
 {
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+float AOxiCharacter::TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser)
+{
+	CurrentHealth -= DamageAmount;
+	
+	if (CurrentHealth < 0.0f)
+	{
+		CurrentHealth = 0.0f;
+	}
+	const float t = 1.0f - ((float)CurrentHealth / BaseHealth);
+
+	FLinearColor CurBloodColor = FMath::Lerp(OxiColor, BloodColor, t);
+	UE_LOG(LogTemp, Log, TEXT("Cur = %f, Bsae = %f, t = %f, color = %f %f %f %f"), CurrentHealth, BaseHealth, t, CurBloodColor.R, CurBloodColor.G, CurBloodColor.B, CurBloodColor.A);
+
+	HandsMaterial->SetVectorParameterValue("PulseColor", CurBloodColor);
+	//HandsMaterial->SetVectorParameterValue("PulseColor2", OxiColor);
+
+	for (int i = 0; i < OxiPulseLightList.Num(); i++)
+	{
+		OxiPulseLightList[i]->SetLightColor(CurBloodColor);
+	}
+	return 0.f;
 }

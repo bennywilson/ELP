@@ -5,12 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "OxiWeaponAnimInstance.h"
+#include "OxiInterfaces.h"
 #include "OxiCharacter.generated.h"
 
 class UInputComponent;
 
 UCLASS(config=Game)
-class AOxiCharacter : public ACharacter
+class AOxiCharacter : public ACharacter, public IOxiDamageInterface
 {
 	GENERATED_BODY()
 
@@ -40,7 +41,7 @@ protected:
 	UOxiWeaponAnimInstance* GetWeaponOutlineAnimBP() const { return Cast<UOxiWeaponAnimInstance>(FP_GunOutline->GetAnimInstance()); }
 
 	UFUNCTION(BlueprintCallable, Category = "Oxi Character")
-	USkeletalMeshComponent* GetWeaonSkeletalMesh() const { return FP_Gun; }
+	USkeletalMeshComponent* GetWeaponSkeletalMesh() const { return FP_Gun; }
 
 public:
 	AOxiCharacter();
@@ -58,6 +59,26 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float BaseHealth;
+
+	UPROPERTY(BlueprintReadOnly, interp, Category = Light)
+	FLinearColor OxiColor;
+
+	UPROPERTY(BlueprintReadOnly, interp, Category = Light)
+	FLinearColor BloodColor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
+	TArray<ULightComponent*> OxiPulseLightList;
+
+private:
+	
+	UMaterialInstanceDynamic* HandsMaterial;
+	float CurrentHealth;
+
+private:
+	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) override;
 
 protected:
 	
