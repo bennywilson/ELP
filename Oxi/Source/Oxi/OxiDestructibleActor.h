@@ -2,30 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "UObject/Interface.h"
+#include "OxiInterfaces.h"
 #include "OxiDestructibleActor.generated.h"
 
-
-UINTERFACE(BlueprintType)
-class UOxiDamageInterface : public UInterface
-{
-	GENERATED_UINTERFACE_BODY()
-};
-
-class IOxiDamageInterface
-{
-	GENERATED_BODY()
-
-public:
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Oxi Damage")
-	float TakeDamage(const float DamageAmount, const AActor* DamageCauser);
-	virtual float TakeDamage_Implementation(const int DamageAmount, const AActor* DamageCauser);
-
-private:
-	virtual int TakeDamage_Internal(const int DamageAmount, const AActor* DamageCauser) = 0;
-};
 
 UCLASS(config = Game)
 class AOxiDestructibleActor : public AActor
@@ -81,7 +60,7 @@ protected:
 	float ExplosionAngularImpulseMax;
 
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
-	USoundBase* ExplosionSound;
+	class USoundBase* ExplosionSound;
 
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
 	float SmearInitialPopDistance;
@@ -96,10 +75,10 @@ protected:
 	float SmearStartTime;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
-	ULightComponent* ExplosionLightComponent;
+	class ULightComponent* ExplosionLightComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
-	UParticleSystemComponent* ExplosionParticleComponent;
+	class UParticleSystemComponent* ExplosionParticleComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Oxi Damage")
 	float ExplosionLightDurationSec;

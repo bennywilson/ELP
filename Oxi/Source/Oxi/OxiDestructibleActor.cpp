@@ -84,20 +84,22 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 		{
 			UGameplayStatics::PlaySoundAtLocation(this, ExplosionSound, GetComponentTransform().GetLocation());
 		}
+
 		if (DestructibleMeshComponent != nullptr)
 		{
 			SmearStartTime = GetWorld()->GetUnpausedTimeSeconds();
+
 			DestructibleMeshComponent->SetHiddenInGame(false);
 			DestructibleMeshComponent->SetSimulatePhysics(true);
 			DestructibleMeshComponent->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 			
-			FVector ExplosionLocation = DestructibleMeshComponent->GetSocketLocation("ExplosionLocation");
+			const FVector ExplosionLocation = DestructibleMeshComponent->GetSocketLocation("ExplosionLocation");
 
 			for (FBodyInstance* BI : DestructibleMeshComponent->Bodies)
 			{
 				const float XYImpulse = FMath::RandRange(ExplosionXYImpulseMin, ExplosionXYImpulseMax);
-				FVector XAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(1.0f, 0.0f, 0.0f, 1.0f));
-				FVector YAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(0.0f, 1.0f, 0.0f));
+				const FVector XAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(1.0f, 0.0f, 0.0f, 1.0f));
+				const FVector YAmount = XYImpulse * DestructibleMeshComponent->GetComponentTransform().TransformFVector4(FVector4(0.0f, 1.0f, 0.0f));
 
 				const FVector ImpulseDir = (BI->GetCOMPosition() - ExplosionLocation).GetSafeNormal() * ExplosionImpulseMagnitude;
 				const FVector FinalImpulse = ImpulseDir + XAmount + YAmount;
@@ -118,13 +120,13 @@ int UOxiDestructibleComponent::TakeDamage_Internal(const int DamageAmount, const
 				RotationAxis = RotationAxis * FMath::RandRange(ExplosionAngularImpulseMin, ExplosionAngularImpulseMax);
 				DestructibleMeshComponent->AddAngularImpulseInRadians(RotationAxis, BoneName, true);
 			}
+		}
 
-			if (ExplosionParticleComponent != nullptr)
-			{
-				ExplosionParticleComponent->ResetParticles(true);
-				ExplosionParticleComponent->SetVisibility(true);
- 				ExplosionParticleComponent->ActivateSystem();
-			}
+		if (ExplosionParticleComponent != nullptr)
+		{
+			ExplosionParticleComponent->ResetParticles(true);
+			ExplosionParticleComponent->SetVisibility(true);
+			ExplosionParticleComponent->ActivateSystem();
 		}
 
 		if (ExplosionLightComponent != nullptr)
