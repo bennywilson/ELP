@@ -144,15 +144,10 @@ float UOxiDestructibleComponent::TakeDamage_Internal(const float DamageAmount, c
 			TArray<class UPrimitiveComponent*> OutComponents;
 			ActorsToIgnore.Add(GetOwner());
 			UKismetSystemLibrary::SphereOverlapComponents(this, GetOwner()->GetActorLocation(), ExplosionSplashDamageRadius, ObjectTypes, nullptr, ActorsToIgnore, OutComponents);
+
 			for (int i = 0; i < OutComponents.Num(); i++)
 			{
-				UE_LOG(LogTemp, Log, TEXT("%s %s"), *OutComponents[i]->GetName(), *OutComponents[i]->GetOwner()->GetFullName());
-
 				UPrimitiveComponent* CurComp = OutComponents[i];
-				if (CurComp->GetAttachParent() == this)
-				{
-					continue;
-				}
 				AActor* const CurOwner = CurComp->GetOwner();
 				if (CurOwner->GetClass()->ImplementsInterface(UOxiDamageInterface::StaticClass()))
 				{

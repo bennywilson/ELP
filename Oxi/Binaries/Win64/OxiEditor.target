@@ -16,7 +16,7 @@
 		"IsLicenseeVersion": 0,
 		"IsPromotedBuild": 0,
 		"BranchName": "++UE4+Release-4.25",
-		"BuildId": "bbc6b096-f79a-4631-8a95-ab59f13e419d",
+		"BuildId": "d3971584-f138-4c69-aab9-f2bef90c6f6d",
 		"BuildVersion": ""
 	},
 	"BuildProducts": [
@@ -4117,6 +4117,62 @@
 			"Type": "SymbolFile"
 		},
 		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxNoEditorTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxNoEditorTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxAArch64NoEditorTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxAArch64NoEditorTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxClientTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxClientTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxAArch64ClientTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxAArch64ClientTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxServerTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxServerTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxAArch64ServerTargetPlatform.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor-LinuxAArch64ServerTargetPlatform.pdb",
+			"Type": "SymbolFile"
+		},
+		{
 			"Path": "$(EngineDir)/Binaries/Win64/UE4Editor-Engine.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -4738,6 +4794,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Binaries/Win64/XXX/UE4Editor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Win64/Linux/UE4Editor.modules",
 			"Type": "RequiredResource"
 		}
 	],
