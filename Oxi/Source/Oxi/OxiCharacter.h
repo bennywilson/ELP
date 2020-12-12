@@ -63,10 +63,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float BaseHealth;
 
-	UPROPERTY(BlueprintReadOnly, interp, Category = Light)
+	UPROPERTY(BlueprintReadWrite, interp, Category = Light)
 	FLinearColor OxiColor;
 
-	UPROPERTY(BlueprintReadOnly, interp, Category = Light)
+	UPROPERTY(BlueprintReadWrite, interp, Category = Light)
 	FLinearColor BloodColor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
