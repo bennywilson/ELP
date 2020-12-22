@@ -69,6 +69,12 @@ public:
 	UPROPERTY(BlueprintReadWrite, interp, Category = Light)
 	FLinearColor BloodColor;
 
+	UPROPERTY(BlueprintReadWrite, interp, Category = Light)
+	FLinearColor OxiLightColor;
+
+	UPROPERTY(BlueprintReadWrite, interp, Category = Light)
+	FLinearColor BloodLightColor;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
 	TArray<ULightComponent*> OxiPulseLightList;
 

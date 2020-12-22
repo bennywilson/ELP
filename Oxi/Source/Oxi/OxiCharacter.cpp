@@ -88,7 +88,7 @@ void AOxiCharacter::BeginPlay()
 
 	for (int i = 0; i < OxiPulseLightList.Num(); i++)
 	{
-		OxiPulseLightList[i]->SetLightColor(OxiColor);
+		OxiPulseLightList[i]->SetLightColor(OxiLightColor);
 	}
 //	HandsMaterial->SetVectorParameterValue("PulseColor2", OxiColor);
 
