@@ -272,6 +272,10 @@ FLightSceneProxy::FLightSceneProxy(const ULightComponent* InLightComponent)
 	, ShadowSlopeBias(InLightComponent->ShadowSlopeBias)
 	, ShadowSharpen(InLightComponent->ShadowSharpen)
 	, ContactShadowLength(InLightComponent->ContactShadowLength)
+	// ELP BEGIN - bwilson
+	, WrapLightScale(InLightComponent->WrapLightScale)
+	, WrapLightBias(InLightComponent->WrapLightBias)
+	// ELP END
 	, SpecularScale(InLightComponent->SpecularScale)
 	, LightGuid(InLightComponent->LightGuid)
 	, RayStartOffsetDepthScale(InLightComponent->RayStartOffsetDepthScale)
@@ -430,6 +434,12 @@ ULightComponent::ULightComponent(const FObjectInitializer& ObjectInitializer)
 
 	LightFunctionFadeDistance = 100000.0f;
 	DisabledBrightness = 0.5f;
+
+	// ELP BEGIN - bwilson
+	WrapLightScale = 1.0f;
+	WrapLightBias = 0.0f;
+	// ELP END
+
 	SpecularScale = 1.0f;
 
 	bEnableLightShaftBloom = false;
@@ -691,6 +701,10 @@ void ULightComponent::PostEditChangeProperty(FPropertyChangedEvent& PropertyChan
 		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(ULightComponent, bCastRaytracedShadow) &&
 		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(ULightComponent, bAffectReflection) &&
 		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(ULightComponent, bAffectGlobalIllumination) &&
+// ELP BEGIN - bwilson
+		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(ULightComponent, WrapLightScale) &&
+		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(ULightComponent, WrapLightBias) &&
+// ELP END
 		// Point light properties that shouldn't unbuild lighting
 		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(UPointLightComponent, SourceRadius) &&
 		PropertyName != GET_MEMBER_NAME_STRING_CHECKED(UPointLightComponent, SoftSourceRadius) &&

@@ -68,6 +68,11 @@ FDirectLighting IntegrateBxDF( FGBufferData GBuffer, half3 N, half3 V, FCapsuleL
 	}
 
 	NoL = saturate( NoL );
+
+	// ELP BEGIN - bwilson
+	NoL = (NoL * Capsule.WrapLightScale) + Capsule.WrapLightBias;
+	// ELP END
+
 	Falloff = bInverseSquared ? Falloff : 1;
 
 	float3 ToLight = Capsule.LightPos[0];

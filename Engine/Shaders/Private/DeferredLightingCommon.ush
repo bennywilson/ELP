@@ -31,6 +31,10 @@ struct FDeferredLightData
 	float SourceRadius;
 	float SourceLength;
 	float SpecularScale;
+	// ELP BEGIN - bwilson
+	float WrapLightScale;
+	float WrapLightBias;
+	// ELP END
 	float ContactShadowLength;
 	float2 DistanceFadeMAD;
 	float4 ShadowMapChannelMask;
@@ -279,6 +283,10 @@ FCapsuleLight GetCapsule( float3 ToLight, FDeferredLightData LightData )
 	Capsule.DistBiasSqr = 1;
 	Capsule.LightPos[0] = ToLight - 0.5 * Capsule.Length * LightData.Tangent;
 	Capsule.LightPos[1] = ToLight + 0.5 * Capsule.Length * LightData.Tangent;
+	// ELP BEGIN - bwilson
+	Capsule.WrapLightScale = LightData.WrapLightScale;
+	Capsule.WrapLightBias = LightData.WrapLightBias;
+	// ELP END
 	return Capsule;
 }
 

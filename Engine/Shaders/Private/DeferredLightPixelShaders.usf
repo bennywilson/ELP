@@ -77,6 +77,10 @@ FDeferredLightData SetupLightDataForStandardDeferred()
 	LightData.SourceLength = DeferredLightUniforms.SourceLength;
     LightData.SoftSourceRadius = DeferredLightUniforms.SoftSourceRadius;
 	LightData.SpecularScale = DeferredLightUniforms.SpecularScale;
+	// ELP BEGIN - bwilson
+	LightData.WrapLightScale = DeferredLightUniforms.WrapLightScale;
+	LightData.WrapLightBias = DeferredLightUniforms.WrapLightBias;
+	// ELP END
 	LightData.ContactShadowLength = abs(DeferredLightUniforms.ContactShadowLength);
 	LightData.ContactShadowLengthInWS = DeferredLightUniforms.ContactShadowLength < 0.0f;
 	LightData.DistanceFadeMAD = DeferredLightUniforms.DistanceFadeMAD;

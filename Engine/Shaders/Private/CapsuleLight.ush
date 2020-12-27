@@ -26,6 +26,8 @@ struct FCapsuleLight
 	float	Radius;
 	float	SoftRadius;
 	float	DistBiasSqr;
+	float   WrapLightScale;
+	float   WrapLightBias;
 };
 
 void ClipToHorizon( inout float3 Line0, inout float3 Line1, float3 N )

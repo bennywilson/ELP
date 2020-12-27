@@ -71,9 +71,17 @@ class ENGINE_API ULightComponent : public ULightComponentBase
 	UPROPERTY()
 	float MinRoughness_DEPRECATED;
 
+	// ELP BEGIN - bwilson
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Light)
+	float WrapLightScale;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Light)
+	float WrapLightBias;
+	// ELP END
+
 	/** 
 	 * Multiplier on specular highlights. Use only with great care! Any value besides 1 is not physical!
-	 * Can be used to artistically remove highlights mimicking polarizing filters or photo touch up.
+	 * Can be used to artistically remove highlights mimicking polarizing wrap or photo touch up.
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Light, AdvancedDisplay, meta=(UIMin = "0", UIMax = "1"))
 	float SpecularScale;

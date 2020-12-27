@@ -1159,6 +1159,11 @@ BEGIN_SHADER_PARAMETER_STRUCT(FLightShaderParameters, ENGINE_API)
 
 	// Factor to applies on the specular.
 	SHADER_PARAMETER(float, SpecularScale)
+	
+	// ELP BEGIN - bwilson
+	SHADER_PARAMETER(float, WrapLightScale)
+	SHADER_PARAMETER(float, WrapLightBias)
+	// ELP END
 
 	// One tangent of the light if applies.
 	// Note: BiTangent is on purpose not stored for memory optimisation purposes.
@@ -1184,6 +1189,7 @@ BEGIN_SHADER_PARAMETER_STRUCT(FLightShaderParameters, ENGINE_API)
 
 	// Texture of the rect light.
 	SHADER_PARAMETER_TEXTURE(Texture2D, SourceTexture)
+
 END_SHADER_PARAMETER_STRUCT()
 
 
@@ -1472,6 +1478,12 @@ protected:
 
 	/** Length of screen space ray trace for sharp contact shadows. */
 	float ContactShadowLength;
+
+	// ELP BEGIN - bwilson
+	float WrapLightScale;
+
+	float WrapLightBias;
+	// ELP END
 
 	/** Specular scale */
 	float SpecularScale;

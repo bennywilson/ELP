@@ -117,6 +117,10 @@ void SetSimpleDeferredLightParameters(
 	DeferredLightUniformsValue.LightParameters.Direction = FVector(1, 0, 0);
 	DeferredLightUniformsValue.LightParameters.Tangent = FVector(1, 0, 0);
 	DeferredLightUniformsValue.LightParameters.SpotAngles = FVector2D(-2, 1);
+	// ELP BEGIN - bwilson
+	DeferredLightUniformsValue.LightParameters.WrapLightScale = 1.0f;
+	DeferredLightUniformsValue.LightParameters.WrapLightBias = 0.0f;
+	// ELP END
 	DeferredLightUniformsValue.LightParameters.SpecularScale = 1.0f;
 	DeferredLightUniformsValue.LightParameters.SourceRadius = 0.0f;
 	DeferredLightUniformsValue.LightParameters.SoftSourceRadius = 0.0f;

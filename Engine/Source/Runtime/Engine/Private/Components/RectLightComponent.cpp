@@ -238,6 +238,10 @@ void FRectLightSceneProxy::GetLightShaderParameters(FLightShaderParameters& Ligh
 	LightParameters.SourceTexture = SourceTexture ? SourceTexture->Resource->TextureRHI : GWhiteTexture->TextureRHI;
 	LightParameters.RectLightBarnCosAngle = FMath::Cos(FMath::DegreesToRadians(BarnDoorAngle));
 	LightParameters.RectLightBarnLength = BarnDoorLength;
+	// ELP BEGIN - bwilson
+	LightParameters.WrapLightScale = WrapLightScale;
+	LightParameters.WrapLightBias = WrapLightBias;
+	// ELP END
 }
 
 /**

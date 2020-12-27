@@ -3668,13 +3668,18 @@ FText FMaterialAttributeDefinitionMap::GetAttributeOverrideForMaterial(const FGu
 		CustomPinNames.Add({MSM_Hair, "Backlit"});
 		CustomPinNames.Add({MSM_Cloth, "Cloth"});
 		CustomPinNames.Add({MSM_Eye, "Iris Mask"});
-		CustomPinNames.Add({MSM_StylizedHuman, "Cel-Shaded Min Step"});		// ELP bwilson
+		// ELP BEGIN - bwilson
+		CustomPinNames.Add({MSM_StylizedHuman, "Cel-Shaded Min Step"});
+		CustomPinNames.Add({MSM_StylizedEnvironment, "Wrap Light Scale" });
+		// ELP END
 		return FText::FromString(GetPinNameFromShadingModelField(Material->GetShadingModels(), CustomPinNames, "Custom Data 0"));
 	case MP_CustomData1:
 		CustomPinNames.Add({ MSM_ClearCoat, "Clear Coat Roughness" });
 		CustomPinNames.Add({MSM_Eye, "Iris Distance"});
-		CustomPinNames.Add({MSM_StylizedHuman, "Cel-Shaded Max Step"});		// ELP bwilson
-
+		// ELP BEGIN - bwilson
+		CustomPinNames.Add({MSM_StylizedHuman, "Cel-Shaded Max Step"});
+		CustomPinNames.Add({ MSM_StylizedEnvironment, "Wrap Light Bias" });
+		// ELP END
 		return FText::FromString(GetPinNameFromShadingModelField(Material->GetShadingModels(), CustomPinNames, "Custom Data 1"));
 	case MP_AmbientOcclusion:
 		return LOCTEXT("AmbientOcclusion", "Ambient Occlusion");

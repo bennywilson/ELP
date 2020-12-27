@@ -46,6 +46,10 @@ void FPointLightSceneProxy::GetLightShaderParameters(FLightShaderParameters& Lig
 	LightParameters.SourceTexture = GWhiteTexture->TextureRHI;
 	LightParameters.RectLightBarnCosAngle = 0.0f;
 	LightParameters.RectLightBarnLength = -2.0f;
+	// ELP BEGIN - bwilson
+	LightParameters.WrapLightScale = WrapLightScale;
+	LightParameters.WrapLightBias = WrapLightBias;
+	// ELP END
 }
 
 /**

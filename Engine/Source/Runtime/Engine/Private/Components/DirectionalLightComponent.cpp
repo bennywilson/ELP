@@ -246,6 +246,10 @@ public:
 		LightParameters.SoftSourceRadius = FMath::Sin( 0.5f * FMath::DegreesToRadians( LightSourceSoftAngle ) );
 		LightParameters.SourceLength = 0.0f;
 		LightParameters.SourceTexture = GWhiteTexture->TextureRHI;
+		// ELP BEGIN - bwilson
+		LightParameters.WrapLightScale = WrapLightScale;
+		LightParameters.WrapLightBias = WrapLightBias;
+		// ELP END
 	}
 
 	virtual float GetLightSourceAngle() const override
