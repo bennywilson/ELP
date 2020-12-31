@@ -1,10 +1,14 @@
 // ELP 2020
 
 #include "OxiSentryCharacter.h"
+#include "OxiSentryCharAnimInstance.h"
 
 float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser)
 {
 	Super::TakeDamage_Internal(DamageAmount, DamageCauser);
+
+	const bool JustKilled = (BaseHealth > 0 && (BaseHealth - DamageAmount) <= 0.f);
+	BaseHealth -= DamageAmount;
 
 	TArray<USceneComponent*> Children;
 	GetChildrenComponents(true, Children);
@@ -17,8 +21,19 @@ float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const A
 			continue;
 		}
 
-		SkelMesh->SetSimulatePhysics(true);
-		SkelMesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+		if (JustKilled)
+		{
+			SkelMesh->SetSimulatePhysics(true);
+			SkelMesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+		}
+		else
+		{
+			UOxiSentryCharAnimInstance* const AnimInstance = Cast<UOxiSentryCharAnimInstance>(SkelMesh->GetAnimInstance());
+			if (AnimInstance != nullptr)
+			{
+				AnimInstance->PlayHitReaction(DamageAmount, DamageCauser);
+			}
+		}
 	}
 	return 0.f;
 }

@@ -14,8 +14,13 @@ UCLASS(Blueprintable, editinlinenew, meta = (BlueprintSpawnableComponent))
 class OXI_API UOxiSentryCharacter : public UOxiCharacterComponent
 {
 	GENERATED_BODY()
-	
+
+protected:
+
 	// IOxiDamageInterface
 protected:
 	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float BaseHealth;
 };
