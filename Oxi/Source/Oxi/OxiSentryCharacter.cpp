@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// ELP 2020
 
 #include "OxiSentryCharacter.h"
 
@@ -6,7 +6,19 @@ float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const A
 {
 	Super::TakeDamage_Internal(DamageAmount, DamageCauser);
 
-	UE_LOG(LogTemp, Log, TEXT("ERE!"));
+	TArray<USceneComponent*> Children;
+	GetChildrenComponents(true, Children);
 
+	for (int i = 0; i < Children.Num(); i++)
+	{
+		USkeletalMeshComponent* const SkelMesh = Cast<USkeletalMeshComponent>(Children[i]);
+		if (SkelMesh == nullptr)
+		{
+			continue;
+		}
+
+		SkelMesh->SetSimulatePhysics(true);
+		SkelMesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	}
 	return 0.f;
 }
