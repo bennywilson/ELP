@@ -15,12 +15,22 @@ class OXI_API UOxiSentryCharacter : public UOxiCharacterComponent
 {
 	GENERATED_BODY()
 
+public:
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction);
+
 protected:
+
+	void LifeSpanCallback();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
+	float BaseHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FX)
+	TArray<TSubclassOf<AActor>> BloodDecals;
+
+	FTimerHandle DeleteTimer;
 
 	// IOxiDamageInterface
 protected:
 	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	float BaseHealth;
 };
