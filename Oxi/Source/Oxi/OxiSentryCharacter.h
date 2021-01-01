@@ -32,5 +32,5 @@ protected:
 
 	// IOxiDamageInterface
 protected:
-	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) override;
+	virtual float TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser) override;
 };

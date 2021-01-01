@@ -19,9 +19,9 @@ void UOxiSentryCharacter::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 }
 
 
-float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser)
+float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser)
 {
-	Super::TakeDamage_Internal(DamageAmount, DamageCauser);
+	Super::TakeDamage_Internal(DamageAmount, DamageLocation, DamageCauser);
 
 	const bool JustKilled = (BaseHealth > 0 && (BaseHealth - DamageAmount) <= 0.f);
 	BaseHealth -= DamageAmount;
@@ -50,7 +50,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const A
 			UOxiSentryCharAnimInstance* const AnimInstance = Cast<UOxiSentryCharAnimInstance>(SkelMesh->GetAnimInstance());
 			if (AnimInstance != nullptr)
 			{
-				AnimInstance->PlayHitReaction(DamageAmount, DamageCauser);
+				AnimInstance->PlayHitReaction(DamageAmount, DamageLocation, DamageCauser);
 			}
 
 		//	ECollisionChannel CollisionChannel = UEngineTypes::ConvertToCollisionChannel(TraceChannel);

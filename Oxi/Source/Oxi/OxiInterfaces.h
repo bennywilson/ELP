@@ -17,10 +17,10 @@ class IOxiDamageInterface
 
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Oxi Damage")
-	float TakeDamage(const float DamageAmount, const AActor* DamageCauser);
+	float TakeDamage(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser);
 	
-	virtual float TakeDamage_Implementation(const float DamageAmount, const AActor* DamageCauser);
+	virtual float TakeDamage_Implementation(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser);
 
 private:
-	virtual float TakeDamage_Internal(const float DamageAmount, const AActor* DamageCauser) = 0;
+	virtual float TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser) = 0;
 };
