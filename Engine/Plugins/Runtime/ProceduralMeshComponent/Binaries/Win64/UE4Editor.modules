@@ -1,8 +1,0 @@
-{
-	"BuildId": "02a9a3d9-8790-414a-99d2-2f413a3c31a2",
-	"Modules": 
-	{
-		"ProceduralMeshComponent": "UE4Editor-ProceduralMeshComponent.dll",
-		"ProceduralMeshComponentEditor": "UE4Editor-ProceduralMeshComponentEditor.dll"
-	}
-}

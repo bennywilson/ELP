@@ -1,8 +1,0 @@
-{
-	"BuildId": "b4b06cd0-a467-405b-be62-881715dd484f",
-	"Modules": 
-	{
-		"RemoteControl": "UE4Editor-RemoteControl.dll",
-		"WebRemoteControl": "UE4Editor-WebRemoteControl.dll"
-	}
-}

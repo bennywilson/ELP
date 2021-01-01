@@ -1,9 +1,0 @@
-{
-	"BuildId": "b4b06cd0-a467-405b-be62-881715dd484f",
-	"Modules": 
-	{
-		"DMXProtocol": "UE4Editor-DMXProtocol.dll",
-		"DMXProtocolArtNet": "UE4Editor-DMXProtocolArtNet.dll",
-		"DMXProtocolSACN": "UE4Editor-DMXProtocolSACN.dll"
-	}
-}

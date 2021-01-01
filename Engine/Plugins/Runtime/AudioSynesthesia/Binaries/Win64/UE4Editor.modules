@@ -1,9 +1,0 @@
-{
-	"BuildId": "b4b06cd0-a467-405b-be62-881715dd484f",
-	"Modules": 
-	{
-		"AudioSynesthesia": "UE4Editor-AudioSynesthesia.dll",
-		"AudioSynesthesiaCore": "UE4Editor-AudioSynesthesiaCore.dll",
-		"AudioSynesthesiaEditor": "UE4Editor-AudioSynesthesiaEditor.dll"
-	}
-}

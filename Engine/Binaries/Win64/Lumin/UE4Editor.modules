@@ -1,9 +1,0 @@
-{
-	"BuildId": "02a9a3d9-8790-414a-99d2-2f413a3c31a2",
-	"Modules": 
-	{
-		"LuminPlatformEditor": "UE4Editor-LuminPlatformEditor.dll",
-		"LuminRuntimeSettings": "UE4Editor-LuminRuntimeSettings.dll",
-		"LuminTargetPlatform": "UE4Editor-LuminTargetPlatform.dll"
-	}
-}

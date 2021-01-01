@@ -1,8 +1,0 @@
-{
-	"BuildId": "b4b06cd0-a467-405b-be62-881715dd484f",
-	"Modules": 
-	{
-		"GameplayInsights": "UE4Editor-GameplayInsights.dll",
-		"GameplayInsightsEditor": "UE4Editor-GameplayInsightsEditor.dll"
-	}
-}
