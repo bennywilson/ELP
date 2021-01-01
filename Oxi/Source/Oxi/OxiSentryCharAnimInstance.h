@@ -17,4 +17,7 @@ class OXI_API UOxiSentryCharAnimInstance : public UAnimInstance
 public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void PlayHitReaction(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser);
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void PlayDeathReaction(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser);
 };

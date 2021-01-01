@@ -28,6 +28,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FX)
 	TArray<TSubclassOf<AActor>> BloodDecals;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FX)
+	float DeathDurationSec;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=FX)
+	float DeathStartTime;
+
 	FTimerHandle DeleteTimer;
 
 	// IOxiDamageInterface

@@ -2,6 +2,7 @@
 
 #include "OxiSentryCharacter.h"
 #include "OxiSentryCharAnimInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 void UOxiSentryCharacter::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
@@ -37,30 +38,26 @@ float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const F
 			continue;
 		}
 
+		UOxiSentryCharAnimInstance* const AnimInstance = Cast<UOxiSentryCharAnimInstance>(SkelMesh->GetAnimInstance());
 		if (JustKilled)
 		{
 			SkelMesh->SetSimulatePhysics(true);
 			SkelMesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 
 			GetWorld()->GetTimerManager().SetTimer(DeleteTimer, this, &UOxiSentryCharacter::LifeSpanCallback, 5.0f, false);
+			DeathStartTime = UGameplayStatics::GetTimeSeconds(GetWorld());
 
+			if (AnimInstance != nullptr)
+			{
+				AnimInstance->PlayDeathReaction(DamageAmount, DamageLocation, DamageCauser);
+			}
 		}
 		else
 		{
-			UOxiSentryCharAnimInstance* const AnimInstance = Cast<UOxiSentryCharAnimInstance>(SkelMesh->GetAnimInstance());
 			if (AnimInstance != nullptr)
 			{
 				AnimInstance->PlayHitReaction(DamageAmount, DamageLocation, DamageCauser);
 			}
-
-		//	ECollisionChannel CollisionChannel = UEngineTypes::ConvertToCollisionChannel(TraceChannel);
-
-	//		static const FName LineTraceSingleName(TEXT("LineTraceSingle"));
-//			FCollisionQueryParams Params = ConfigureCollisionParams(LineTraceSingleName, bTraceComplex, ActorsToIgnore, bIgnoreSelf, WorldContextObject);
-		//	FHitResult HitResult;
-			//bool bHit = GetWorld()->LineTraceSingleByObjectType(Result, Start, End, FCollisionObjectQueryParams(ECC_WorldStatic), FCollisionQueryParams(NAME_None, FCollisionQueryParams::GetUnknownStatId(), true));
-
-		//	const bool bHit = GetWorld()->LineTraceSingleByObjectType(HitResult, GetOwner()->GetActorLocation(), GetOwner()->GetActorLocation() + FVector(10000.0f, 0.0f, 0.0f), FCollisionObjectQueryParams(ECC_WorldStatic));
 		}
 	}
 	return 0.f;
