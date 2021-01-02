@@ -24,8 +24,25 @@ float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const F
 {
 	Super::TakeDamage_Internal(DamageAmount, DamageLocation, DamageCauser);
 
-	const bool JustKilled = (BaseHealth > 0 && (BaseHealth - DamageAmount) <= 0.f);
+	bool KillShot = true;
+	if (BaseHealth > 1)
+	{
+		KillShot = false;
+	}
+
+	if (BaseHealth <= 0)
+	{
+		return 0.f;
+	}
+
+	const bool JustKilled = KillShot && (BaseHealth > 0 && (BaseHealth - DamageAmount) <= 0.f);
+
 	BaseHealth -= DamageAmount;
+
+	if (BaseHealth <= 0 && KillShot == false)
+	{
+		BaseHealth = 1.0f;
+	}
 
 	TArray<USceneComponent*> Children;
 	GetChildrenComponents(true, Children);
@@ -49,8 +66,13 @@ float UOxiSentryCharacter::TakeDamage_Internal(const float DamageAmount, const F
 
 			if (AnimInstance != nullptr)
 			{
+				AnimInstance->PlayHitReaction(DamageAmount, DamageLocation, DamageCauser);
 				AnimInstance->PlayDeathReaction(DamageAmount, DamageLocation, DamageCauser);
 			}
+			FVector Impulse = (GetComponentTransform().GetLocation() - DamageLocation).GetSafeNormal();
+			static float Scalar = 1000.0f;
+			Impulse *= Scalar;
+			SkelMesh->AddImpulse(Impulse, NAME_None, true);
 		}
 		else
 		{
