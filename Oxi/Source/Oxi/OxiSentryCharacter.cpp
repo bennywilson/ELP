@@ -99,6 +99,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 		static FName RootBone("Bone");
 
 		bool bCanClipBone = DamageInfo.HitBoneName != RootBone;
+		bool bBoneClipped = false;
 		if (bCanClipBone)
 		{
 			for (int ClipBoneIdx = 0; ClipBoneIdx < ClippedBones.Num(); ClipBoneIdx++)
@@ -136,18 +137,16 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 					if (Constraint->IsTerminated() == false)
 					{
 						UPhysicsAsset* const PhysicsAsset = SkelMesh->GetPhysicsAsset();
-
-						// Figure out if Body is fixed or not
 						FBodyInstance* Body = SkelMesh->GetBodyInstance(Constraint->JointName);
 
 						if (Body != NULL && !Body->IsInstanceSimulatingPhysics())
 						{
-							// Unfix body so it can be broken.
 							Body->SetInstanceSimulatePhysics(true);
 						}
 
 						// Break Constraint
 						Constraint->TermConstraint();
+						bBoneClipped = true;
 					}
 				}
 				// Make sure child bodies and constraints are released and turned to physics.
@@ -212,7 +211,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 
 			if (AnimInstance != nullptr)
 			{
-				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, false);
+				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, false, false);
 				AnimInstance->PlayDeathReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser);
 			}
 
@@ -225,7 +224,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 		{
 			if (AnimInstance != nullptr)
 			{
-				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, bCanClipBone);
+				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, bCanClipBone, bBoneClipped);
 			}
 		}
 	}
