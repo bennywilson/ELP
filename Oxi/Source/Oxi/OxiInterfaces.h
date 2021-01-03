@@ -5,6 +5,24 @@
 #include "UObject/Interface.h"
 #include "OxiInterfaces.generated.h"
 
+USTRUCT(BlueprintType)
+struct FOxiDamageInfo
+{
+	GENERATED_USTRUCT_BODY();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DamageAmount;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector DamageLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* DamageCauser;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName HitBoneName;
+};
+
 UINTERFACE(BlueprintType)
 class UOxiDamageInterface : public UInterface
 {
@@ -17,10 +35,10 @@ class IOxiDamageInterface
 
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Oxi Damage")
-	float TakeDamage(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser);
+	float TakeDamage(const FOxiDamageInfo& DamageInfo);
 	
-	virtual float TakeDamage_Implementation(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser);
+	virtual float TakeDamage_Implementation(const FOxiDamageInfo& DamageInfo);
 
 private:
-	virtual float TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser) = 0;
+	virtual float TakeDamage_Internal(const FOxiDamageInfo&) = 0;
 };

@@ -165,9 +165,9 @@ void AOxiCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-float AOxiCharacter::TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser)
+float AOxiCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 {
-	CurrentHealth -= DamageAmount;
+	CurrentHealth -= DamageInfo.DamageAmount;
 	
 	if (CurrentHealth < 0.0f)
 	{

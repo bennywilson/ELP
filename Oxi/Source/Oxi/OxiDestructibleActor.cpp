@@ -10,9 +10,9 @@ UOxiDamageInterface::UOxiDamageInterface(const FObjectInitializer& ObjectInitial
 {
 }
 
-float IOxiDamageInterface::TakeDamage_Implementation(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser)
+float IOxiDamageInterface::TakeDamage_Implementation(const FOxiDamageInfo& DamageInfo)
 {
-	return TakeDamage_Internal(DamageAmount, DamageLocation, DamageCauser);
+	return TakeDamage_Internal(DamageInfo);
 }
 
 AOxiDestructibleActor::AOxiDestructibleActor()
@@ -73,9 +73,9 @@ void UOxiDestructibleComponent::TickComponent(float DeltaTime, enum ELevelTick T
 	}
 }
 
-float UOxiDestructibleComponent::TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser)
+float UOxiDestructibleComponent::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 {
-	if (Health > 0.0f && Health - DamageAmount <= 0.0f)
+	if (Health > 0.0f && Health - DamageInfo.DamageAmount <= 0.0f)
 	{
 		BaseMeshComponent->SetHiddenInGame(true);
 		BaseMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -153,18 +153,18 @@ float UOxiDestructibleComponent::TakeDamage_Internal(const float DamageAmount, c
 				if (CurOwner->GetClass()->ImplementsInterface(UOxiDamageInterface::StaticClass()))
 				{
 					IOxiDamageInterface* const OwnerDamageInterface = Cast<IOxiDamageInterface>(CurOwner);
-					OwnerDamageInterface->Execute_TakeDamage(CurOwner, ExplosionSplashDamageAmount, OwnerLocation, GetOwner());
+					OwnerDamageInterface->Execute_TakeDamage(CurOwner, DamageInfo);
 				}
 				auto DamageCompList = CurComp->GetOwner()->GetComponentsByInterface(UOxiDamageInterface::StaticClass());
 				for (int iDamage = 0; iDamage < DamageCompList.Num(); iDamage++)
 				{
 					IOxiDamageInterface* const DamageInterface = Cast<IOxiDamageInterface>(DamageCompList[iDamage]);
-					DamageInterface->Execute_TakeDamage(DamageCompList[iDamage], ExplosionSplashDamageAmount, OwnerLocation, GetOwner());
+					DamageInterface->Execute_TakeDamage(DamageCompList[iDamage], DamageInfo);
 				}
 			}
 		}
 	}
 
-	Health -= DamageAmount;
+	Health -= DamageInfo.DamageAmount;
 	return 1.0f;
 }

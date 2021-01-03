@@ -84,7 +84,7 @@ private:
 	float CurrentHealth;
 
 private:
-	virtual float TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser) override;
+	virtual float TakeDamage_Internal(const FOxiDamageInfo& DamageInfo) override;
 
 protected:
 	

@@ -16,6 +16,8 @@ class OXI_API UOxiSentryCharacter : public UOxiCharacterComponent
 	GENERATED_BODY()
 
 public:
+	virtual void BeginPlay() override;
+
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction);
 
 protected:
@@ -39,7 +41,17 @@ protected:
 
 	FTimerHandle DeleteTimer;
 
+	struct FHitBoneInfo
+	{
+		FName BoneName;
+		FVector HitLocation;
+	};
+	TArray<FHitBoneInfo> ClippedBones;
+	
+	UPROPERTY(Transient)
+	float LastClipTime;
+
 	// IOxiDamageInterface
 protected:
-	virtual float TakeDamage_Internal(const float DamageAmount, const FVector DamageLocation, const AActor* DamageCauser) override;
+	virtual float TakeDamage_Internal(const FOxiDamageInfo& DamageInfo) override;
 };
