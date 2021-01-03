@@ -96,7 +96,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 			continue;
 		}
 
-		static FName RootBone("Root");
+		static FName RootBone("Bone");
 
 		bool bCanClipBone = DamageInfo.HitBoneName != RootBone;
 		if (bCanClipBone)
