@@ -212,7 +212,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 
 			if (AnimInstance != nullptr)
 			{
-				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser);
+				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, false);
 				AnimInstance->PlayDeathReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser);
 			}
 
@@ -225,7 +225,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 		{
 			if (AnimInstance != nullptr)
 			{
-				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser);
+				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, bCanClipBone);
 			}
 		}
 	}
