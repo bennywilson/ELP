@@ -19,6 +19,8 @@ void UOxiSentryCharacter::BeginPlay()
 			continue;
 		}
 
+
+SkelMesh->SetSimulatePhysics(false);
 		SkelMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		SkelMesh->SetAllBodiesPhysicsBlendWeight(0.f);
 	}
@@ -123,6 +125,40 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 				ClippedBones.Add(HitInfo);
 
 				DamageAmount *= 0.5f;
+				SkelMesh->SetAllBodiesBelowSimulatePhysics(DamageInfo.HitBoneName, true);
+				SkelMesh->SetAllBodiesBelowPhysicsBlendWeight(DamageInfo.HitBoneName, 1.0f);
+				// Break the constraint
+				int32 ConstraintIndex = SkelMesh->FindConstraintIndex(DamageInfo.HitBoneName);
+				if (ConstraintIndex != INDEX_NONE && ConstraintIndex < SkelMesh->Constraints.Num())
+				{
+					FConstraintInstance* Constraint = SkelMesh->Constraints[ConstraintIndex];
+					// If already broken, our job has already been done. Bail!
+					if (Constraint->IsTerminated() == false)
+					{
+						UPhysicsAsset* const PhysicsAsset = SkelMesh->GetPhysicsAsset();
+
+						// Figure out if Body is fixed or not
+						FBodyInstance* Body = SkelMesh->GetBodyInstance(Constraint->JointName);
+
+						if (Body != NULL && !Body->IsInstanceSimulatingPhysics())
+						{
+							// Unfix body so it can be broken.
+							Body->SetInstanceSimulatePhysics(true);
+						}
+
+						// Break Constraint
+						Constraint->TermConstraint();
+					}
+				}
+				// Make sure child bodies and constraints are released and turned to physics.
+				//UpdateMeshForBrokenConstraints();
+				// Add impulse to broken limb
+
+				FVector Impulse = (DamageInfo.DamageLocation - DamageInfo.DamageCauser->GetActorLocation()).GetSafeNormal();
+				static float Scalar = 1000.0f;
+				Impulse *= Scalar;
+				SkelMesh->AddImpulse(Impulse, DamageInfo.HitBoneName, true);
+				//SkelMesh->BreakConstraint(FVector::ZeroVector, DamageInfo.DamageLocation, DamageInfo.HitBoneName);
 			}
 
 			for (int MatIdx = 0; MatIdx < SkelMesh->GetNumMaterials(); MatIdx++)
