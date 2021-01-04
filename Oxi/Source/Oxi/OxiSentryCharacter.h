@@ -45,6 +45,7 @@ protected:
 	{
 		FName BoneName;
 		FVector HitLocation;
+		float HitTime;
 	};
 	TArray<FHitBoneInfo> ClippedBones;
 	

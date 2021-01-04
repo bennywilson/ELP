@@ -19,8 +19,7 @@ void UOxiSentryCharacter::BeginPlay()
 			continue;
 		}
 
-
-SkelMesh->SetSimulatePhysics(false);
+		SkelMesh->SetSimulatePhysics(false);
 		SkelMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		SkelMesh->SetAllBodiesPhysicsBlendWeight(0.f);
 	}
@@ -46,6 +45,7 @@ void UOxiSentryCharacter::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 	TArray<USceneComponent*> Children;
 	GetChildrenComponents(true, Children);
 
+	const float UnpausedTimeSec = GetWorld()->GetUnpausedTimeSeconds();
 	for (int i = 0; i < Children.Num(); i++)
 	{
 		USkeletalMeshComponent* const SkelMesh = Cast<USkeletalMeshComponent>(Children[i]);
@@ -63,6 +63,7 @@ void UOxiSentryCharacter::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 			}
 
 			static FName ClipBoneParams[] = { "ClipBone1Params", "ClipBone2Params", "ClipBone3Params" };
+			static FName ClipBoneGlowParams[] = { "ClipBone1GlowParams", "ClipBone2GlowParams", "ClipBone3GlowParams" };
 			for (int ClipBoneIdx = 0; ClipBoneIdx < ClippedBones.Num(); ClipBoneIdx++)
 			{
 				FLinearColor ClipBoneParam;
@@ -71,10 +72,25 @@ void UOxiSentryCharacter::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 				ClipBoneParam.B = ClippedBones[ClipBoneIdx].HitLocation.Z;
 				ClipBoneParam.A = 5.0f;
 				DynMat->SetVectorParameterValue(ClipBoneParams[ClipBoneIdx], ClipBoneParam);
+
+				const float GlowIntensity = 1.0f - FMath::Clamp((UnpausedTimeSec - ClippedBones[ClipBoneIdx].HitTime) / 1.0f, 0.0f, 1.0f);
+				DynMat->SetScalarParameterValue(ClipBoneGlowParams[ClipBoneIdx], GlowIntensity);
 			}
 		}
-	}
 
+		/*if (BaseHealth > 0)
+		{
+			for (int BodyIdx = 0; BodyIdx < SkelMesh->Bodies.Num(); BodyIdx++)
+			{
+				FBodyInstance* const BodyInst = SkelMesh->Bodies[BodyIdx];
+
+				static float Magnitude = 0.01f;
+				FVector RandImpulse(FMath::RandRange(-1.0f, 1.0f), FMath::RandRange(-1.0f, 1.0f), FMath::RandRange(-1.0f, 1.0f));
+				RandImpulse *= Magnitude;
+				BodyInst->AddImpulse(RandImpulse, true);
+			}
+		}*/
+	}
 }
 
 
@@ -112,6 +128,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 			}
 		}
 
+		const float UnpausedTimeSec = GetWorld()->GetUnpausedTimeSeconds();
 		if (bCanClipBone && ClippedBones.Num() < 3 && GetWorld()->GetUnpausedTimeSeconds() > LastClipTime + 0.5f)
 		{
 			LastClipTime = GetWorld()->GetUnpausedTimeSeconds();
@@ -123,6 +140,7 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 				FHitBoneInfo HitInfo;
 				HitInfo.HitLocation = SkelMesh->GetBoneLocation(DamageInfo.HitBoneName, EBoneSpaces::ComponentSpace);
 				HitInfo.BoneName = DamageInfo.HitBoneName;
+				HitInfo.HitTime = UnpausedTimeSec;
 				ClippedBones.Add(HitInfo);
 
 				DamageAmount *= 0.5f;
@@ -149,15 +167,10 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 						bBoneClipped = true;
 					}
 				}
-				// Make sure child bodies and constraints are released and turned to physics.
-				//UpdateMeshForBrokenConstraints();
-				// Add impulse to broken limb
 
-				FVector Impulse = (DamageInfo.DamageLocation - DamageInfo.DamageCauser->GetActorLocation()).GetSafeNormal();
 				static float Scalar = 1000.0f;
-				Impulse *= Scalar;
+				const FVector Impulse = (DamageInfo.DamageLocation - DamageInfo.DamageCauser->GetActorLocation()).GetSafeNormal() * Scalar;
 				SkelMesh->AddImpulse(Impulse, DamageInfo.HitBoneName, true);
-				//SkelMesh->BreakConstraint(FVector::ZeroVector, DamageInfo.DamageLocation, DamageInfo.HitBoneName);
 			}
 
 			for (int MatIdx = 0; MatIdx < SkelMesh->GetNumMaterials(); MatIdx++)
