@@ -216,22 +216,34 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 		UOxiSentryCharAnimInstance* const AnimInstance = Cast<UOxiSentryCharAnimInstance>(SkelMesh->GetAnimInstance());
 		if (JustKilled)
 		{
-			SkelMesh->SetSimulatePhysics(true);
-			SkelMesh->SetAllBodiesPhysicsBlendWeight(1.f);
+			const float GibRoll = FMath::FRand();
+
+			const FVector OurLocation = GetComponentTransform().GetLocation();
+			if (GibRoll < GibChance && GibList.Num() > 0)
+			{
+				GetOwner()->Destroy();
+				const int GibIdx = FMath::RandRange(0, GibList.Num() - 1);
+				GetWorld()->SpawnActor(GibList[GibIdx], &GetComponentTransform());
+			}
+			else
+			{
+				SkelMesh->SetSimulatePhysics(true);
+				SkelMesh->SetAllBodiesPhysicsBlendWeight(1.f);
+
+				if (AnimInstance != nullptr)
+				{
+					AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, false, false);
+					AnimInstance->PlayDeathReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser);
+				}
+
+				FVector Impulse = (OurLocation - DamageInfo.DamageLocation).GetSafeNormal();
+				static float Scalar = 1000.0f;
+				Impulse *= Scalar;
+				SkelMesh->AddImpulse(Impulse, NAME_None, true);
+			}
 
 			GetWorld()->GetTimerManager().SetTimer(DeleteTimer, this, &UOxiSentryCharacter::LifeSpanCallback, 5.0f, false);
 			DeathStartTime = UGameplayStatics::GetTimeSeconds(GetWorld());
-
-			if (AnimInstance != nullptr)
-			{
-				AnimInstance->PlayHitReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser, false, false);
-				AnimInstance->PlayDeathReaction(DamageInfo.DamageAmount, DamageInfo.DamageLocation, DamageInfo.DamageCauser);
-			}
-
-			FVector Impulse = (GetComponentTransform().GetLocation() - DamageInfo.DamageLocation).GetSafeNormal();
-			static float Scalar = 1000.0f;
-			Impulse *= Scalar;
-			SkelMesh->AddImpulse(Impulse, NAME_None, true);
 		}
 		else
 		{
