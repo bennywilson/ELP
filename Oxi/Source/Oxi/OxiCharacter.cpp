@@ -2,6 +2,7 @@
 
 #include "OxiCharacter.h"
 #include "OxiProjectile.h"
+#include "OxiGameMode.h"
 #include "OxiWeaponAnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -93,6 +94,14 @@ void AOxiCharacter::BeginPlay()
 //	HandsMaterial->SetVectorParameterValue("PulseColor2", OxiColor);
 
 	CurrentHealth = BaseHealth;
+
+	OnCharacterDeathEventHandle = UCombatManager::Get()->GetCharacterDeathDelegates().AddUObject(this, &ThisClass::OnCharacterDeathEvent);
+}
+
+void AOxiCharacter::BeginDestroy()
+{
+	Super::BeginDestroy();
+	UCombatManager::Get()->GetCharacterDeathDelegates().Remove(OnCharacterDeathEventHandle);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -186,4 +195,21 @@ float AOxiCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 		OxiPulseLightList[i]->SetLightColor(CurBloodColor);
 	}
 	return 0.f;
+}
+
+void AOxiCharacter::OnCharacterDeathEvent(UOxiCharacterComponent* Victim, UOxiCharacterComponent* Killer)
+{
+	UE_LOG(LogTemp, Log, TEXT("Killah!"));
+
+	if (EnemyKilledVO.Num() > 0)
+	{
+//		const int idx = FMath::Rand() % EnemyKilledVO.Num();
+		static int curIdx = 0;
+		UGameplayStatics::PlaySoundAtLocation(this, EnemyKilledVO[curIdx], FirstPersonCameraComponent->GetComponentToWorld().GetLocation());
+		curIdx++;
+		if (curIdx >= EnemyKilledVO.Num())
+		{
+			curIdx = 0;
+		}
+	}
 }

@@ -1,5 +1,6 @@
 // ELP 2020
 
+#include "OxiGameMode.h"
 #include "OxiSentryCharacter.h"
 #include "OxiSentryCharAnimInstance.h"
 #include "Kismet/GameplayStatics.h"
@@ -244,6 +245,8 @@ float UOxiSentryCharacter::TakeDamage_Internal(const FOxiDamageInfo& DamageInfo)
 
 			GetWorld()->GetTimerManager().SetTimer(DeleteTimer, this, &UOxiSentryCharacter::LifeSpanCallback, 5.0f, false);
 			DeathStartTime = UGameplayStatics::GetTimeSeconds(GetWorld());
+
+			UCombatManager::Get()->TriggerDeathEvent(this, nullptr);
 		}
 		else
 		{

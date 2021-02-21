@@ -47,7 +47,8 @@ public:
 	AOxiCharacter();
 
 protected:
-	virtual void BeginPlay();
+	virtual void BeginPlay() override;
+	virtual void BeginDestroy() override;
 
 public:
 
@@ -78,6 +79,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Oxi Damage")
 	TArray<ULightComponent*> OxiPulseLightList;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VO")
+	TArray<class USoundBase*> EnemyKilledVO;
+
 private:
 	
 	UMaterialInstanceDynamic* HandsMaterial;
@@ -106,5 +110,11 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+private:
+	
+	void OnCharacterDeathEvent(class UOxiCharacterComponent* Victim, UOxiCharacterComponent* Killer);
+
+
+	FDelegateHandle OnCharacterDeathEventHandle;
 };
 
