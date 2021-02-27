@@ -112,6 +112,7 @@ public:
 
 private:
 	
+	UFUNCTION()
 	void OnCharacterDeathEvent(class UOxiCharacterComponent* Victim, UOxiCharacterComponent* Killer);
 
 

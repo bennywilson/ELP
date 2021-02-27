@@ -34,6 +34,9 @@ DEFINE_LOG_CATEGORY(LogProcess);
 DEFINE_LOG_CATEGORY(LogLoad);
 DEFINE_LOG_CATEGORY(LogCore);
 
+// ELP BEGIN - bwilson
+DEFINE_LOG_CATEGORY(LogCombat);
+// ELP END
 
 /*-----------------------------------------------------------------------------
 	FSelfRegisteringExec implementation.

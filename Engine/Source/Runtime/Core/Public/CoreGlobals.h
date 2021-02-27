@@ -41,6 +41,10 @@ CORE_API DECLARE_LOG_CATEGORY_EXTERN(LogLongPackageNames, Log, All);
 CORE_API DECLARE_LOG_CATEGORY_EXTERN(LogProcess, Log, All);
 CORE_API DECLARE_LOG_CATEGORY_EXTERN(LogLoad, Log, All);
 
+// ELP BEGIN - bwilson
+CORE_API DECLARE_LOG_CATEGORY_EXTERN(LogCombat, Log, All);
+// ELP END
+
 // Temporary log category, generally you should not check things in that use this
 CORE_API DECLARE_LOG_CATEGORY_EXTERN(LogTemp, Log, All);
 

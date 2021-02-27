@@ -5,26 +5,35 @@
 #include "OxiCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
+UCombatManager* UCombatManager::Instance = nullptr;
 
-static UCombatManager* GCombatManager = nullptr;
 UCombatManager::UCombatManager()
 {
-
-}
-
-UCombatManager* UCombatManager::Get()
-{
-	return GCombatManager;
+	if (HasAnyFlags(RF_ArchetypeObject) == false)
+	{
+		Instance = this;
+	}
 }
 
 void UCombatManager::BeginDestroy()
 {
 	Super::BeginDestroy();
+
+	if (Instance == this)
+	{
+		Instance = nullptr;
+	}
 }
 
 void UCombatManager::TriggerDeathEvent(class UOxiCharacterComponent* Victim, UOxiCharacterComponent* Killer)
 {
-	CharacterDeathDelegates.Broadcast(Victim, Killer);
+	if (Instance == nullptr)
+	{
+		UE_LOG(LogCombat, Log, TEXT("UCombatManager::UnregisterEventListener() - NULL combat manager."));
+		return;
+	}
+
+	Instance->CharacterDeathDelegates.Broadcast(Victim, Killer);
 }
 
 AOxiGameMode::AOxiGameMode()
@@ -42,7 +51,7 @@ AOxiGameMode::AOxiGameMode()
 		CombatManager = CreateDefaultSubobject<UCombatManager>(TEXT("CombatManager"));
 
 		//check(GCombatManager == nullptr);
-		GCombatManager = CombatManager;
+
 	}
 }
 
@@ -53,6 +62,6 @@ void AOxiGameMode::BeginDestroy()
 //s	if (GIsPlayInEditorWorld || GIsEditor == false)
 	{
 	//	check(GCombatManager != nullptr);
-		GCombatManager = nullptr;
+
 	}
 }

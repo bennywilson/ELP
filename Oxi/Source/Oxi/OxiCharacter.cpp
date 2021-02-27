@@ -95,13 +95,14 @@ void AOxiCharacter::BeginPlay()
 
 	CurrentHealth = BaseHealth;
 
-	OnCharacterDeathEventHandle = UCombatManager::Get()->GetCharacterDeathDelegates().AddUObject(this, &ThisClass::OnCharacterDeathEvent);
+	OnCharacterDeathEventHandle = UCombatManager::RegisterEventListener(this, FName("OnCharacterDeathEvent"));
 }
 
 void AOxiCharacter::BeginDestroy()
 {
 	Super::BeginDestroy();
-	UCombatManager::Get()->GetCharacterDeathDelegates().Remove(OnCharacterDeathEventHandle);
+
+	UCombatManager::UnregisterEventListener(OnCharacterDeathEventHandle);
 }
 
 //////////////////////////////////////////////////////////////////////////
