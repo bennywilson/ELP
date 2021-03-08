@@ -1,0 +1,10 @@
+{
+	"BuildId": "48440374-43d2-4cdd-ac0b-cde1dc9a9841",
+	"Modules": 
+	{
+		"VPBookmark": "UE4Editor-VPBookmark.dll",
+		"VPBookmarkEditor": "UE4Editor-VPBookmarkEditor.dll",
+		"VPUtilities": "UE4Editor-VPUtilities.dll",
+		"VPUtilitiesEditor": "UE4Editor-VPUtilitiesEditor.dll"
+	}
+}

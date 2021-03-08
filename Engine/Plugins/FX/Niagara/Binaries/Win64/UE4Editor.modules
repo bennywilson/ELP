@@ -1,0 +1,13 @@
+{
+	"BuildId": "48440374-43d2-4cdd-ac0b-cde1dc9a9841",
+	"Modules": 
+	{
+		"Niagara": "UE4Editor-Niagara.dll",
+		"NiagaraAnimNotifies": "UE4Editor-NiagaraAnimNotifies.dll",
+		"NiagaraCore": "UE4Editor-NiagaraCore.dll",
+		"NiagaraEditor": "UE4Editor-NiagaraEditor.dll",
+		"NiagaraEditorWidgets": "UE4Editor-NiagaraEditorWidgets.dll",
+		"NiagaraShader": "UE4Editor-NiagaraShader.dll",
+		"NiagaraVertexFactories": "UE4Editor-NiagaraVertexFactories.dll"
+	}
+}

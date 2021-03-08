@@ -1,0 +1,10 @@
+{
+	"BuildId": "48440374-43d2-4cdd-ac0b-cde1dc9a9841",
+	"Modules": 
+	{
+		"MovieRenderPipelineCore": "UE4Editor-MovieRenderPipelineCore.dll",
+		"MovieRenderPipelineEditor": "UE4Editor-MovieRenderPipelineEditor.dll",
+		"MovieRenderPipelineRenderPasses": "UE4Editor-MovieRenderPipelineRenderPasses.dll",
+		"MovieRenderPipelineSettings": "UE4Editor-MovieRenderPipelineSettings.dll"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"BuildId": "48440374-43d2-4cdd-ac0b-cde1dc9a9841",
+	"Modules": 
+	{
+		"DatasmithRemoteImport": "UE4Editor-DatasmithRemoteImport.dll",
+		"RemoteImportLibrary": "UE4Editor-RemoteImportLibrary.dll"
+	}
+}
